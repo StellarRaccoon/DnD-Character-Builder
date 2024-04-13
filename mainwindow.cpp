@@ -8,7 +8,9 @@
 #include<QJsonDocument>
 #include<QJsonObject>
 #include<QJsonArray>
-
+#include<QTreeWidget>
+#include<QTreeWidgetItem>
+#include"jsonmanipulation.h"
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -44,20 +46,36 @@ MainWindow::MainWindow(QWidget *parent)
     //fetchData("races");
 
     QJsonArray jsonArrayRaceNames = {};
-    QJsonDocument doc = QJsonDocument(jsonArrayRaceNames);
+    QJsonDocument doc(jsonArrayRaceNames);
     //QJsonArray jsonRaces = {};
     //should probably do something if these fail (like try again)
-    qDebug()<<fetchData("/api/races", doc);
-    getNamesFromJson(doc,jsonArrayRaceNames);
+    qDebug()<<jason.fetchData("/api/races", doc);
+    //JsonManipulation *jason = new JsonManipulation();
+
+    jason.getNamesFromJson(doc,jsonArrayRaceNames);
     //ui->textEdit->setPlainText(doc["results"].toString());
 
     //get the names and urls from each to get more data
+    ui->treeWidget->setColumnCount(2);
+    ui->treeWidget->setColumnHidden(1,true);
+    ui->treeWidget->setHeaderLabels(QStringList()<<"Hey"<<"Cowboy");
+
+
+    AddRoot("Hello", "World");
 
     for(auto raceNames: jsonArrayRaceNames){
         QJsonObject raceNameData = raceNames.toObject();
         QString raceName = raceNameData.value("name").toString();
         QString raceUrl = raceNameData.value("url").toString();
-        ui->listWidget->addItem(raceName);
+        QTreeWidgetItem *raceRoot= new QTreeWidgetItem(ui->treeWidget);
+        raceRoot->setText(0,raceName);
+        raceRoot->setText(1,raceUrl);
+        //QListWidgetItem *newItem=new QListWidgetItem();
+        //newItem->setText(raceName);
+        //newItem->setWhatsThis(raceUrl);//theres gotta be a better way to store some hidden data
+        qDebug()<<"url:"<<raceRoot->text(0);
+        //ui->treeWidget->addItem(raceName);
+
 /*TODO: Use correct data in dialouge when clicked*/
         //should only do this if clicked
         //QJsonDocument raceData = QJsonDocument();
@@ -71,13 +89,7 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-/*
-void MainWindow::on_pushButton_clicked()
-{
-    ui->label->setText("button is clicked");
 
-}
-*/
 /*
 void MainWindow::on_pushButton_clicked()
 {
@@ -90,90 +102,40 @@ void MainWindow::on_pushButton_clicked()
 
 }
 */
-bool MainWindow::fetchData(QString urlPath, QJsonDocument &document){
-    QString urlBase ="https://www.dnd5eapi.co%1";
 
-    QNetworkRequest request(QUrl(urlBase.arg(urlPath)));
+void MainWindow::AddRoot(QString name, QString description){
+    QTreeWidgetItem *itm = new QTreeWidgetItem(ui->treeWidget);
+    itm->setText(0, name); //name in column0
+    itm->setText(1,description);
+    ui->treeWidget->addTopLevelItem(itm);
 
-    QNetworkReply *reply =manager.get(request);
-
-    QEventLoop loop;
-    QObject::connect(reply,&QNetworkReply::finished,&loop,&QEventLoop::quit);
-    loop.exec();
-    QString Response;
-    bool success= false;
-    if(reply->error()==QNetworkReply::NoError){
-        qDebug()<<"Error: "<<reply->errorString();
-        QByteArray Response = reply->readAll();
-        qDebug()<<"API Response: "<<Response;
-
-        QJsonParseError jsonError;
-        document = QJsonDocument::fromJson( Response, &jsonError );
-        if( jsonError.error != QJsonParseError::NoError )
-        {
-            qDebug() << "fromJson failed: " << jsonError.errorString().toStdString();
-
-        }else{
-
-            success = true;
-
-        }
-
-        /*
-        if( document.isObject() )
-        {
-            QJsonObject jsonObj = document.object();
-            //...
-            qDebug() << "sucess";
-            if( jsonObj.contains( "results") )
-            {
-
-                QJsonArray jsonArray = jsonObj.value("results").toArray();
-
-                qDebug()<<"Found";
-                QStringList keys = jsonObj.keys();
-                qDebug()<<keys;
-            }
-        }
-*/
-    }else{
-        qDebug()<<"Error: "<<reply->errorString();
-    }
-
-    return success;
 }
+void MainWindow::addChild(QTreeWidgetItem *parent, QString name, QString description){
+    QTreeWidgetItem *itm = new QTreeWidgetItem(ui->treeWidget);
+    itm->setText(0, name); //name in column0
+    itm->setText(1,description);
+    parent->addChild(itm);
 
-/** Convert JSON Document to JSON Array
- *  @param jsonDoc: a Json Document consisting of count and result, where results will be the JSONArray
- *  @param jsonArray: stores the found JSONArray
- *  @return arrayLength: if successful, the value of "count" is returned, if the function fails, -1 is returned
-*/
-int MainWindow::getNamesFromJson(QJsonDocument jsonDoc, QJsonArray &jsonArray){
-    int arrayLength = -1; //if -1 is returned, then the function was not sucessful
-    //check if what is in the document is a viable object
-    if( jsonDoc.isObject())
-    {
-        QJsonObject jsonObj = jsonDoc.object();
-        //check if the keys are count and an array of results
-        if(jsonObj.keys().contains("count")&&jsonObj.keys().contains("results"))
-        {
-            jsonArray = jsonObj.value("results").toArray();
-            arrayLength=jsonObj.value("count").toInt(-1); //set default value to -1 if it fails
-            qDebug() << "sucess";
-        }
-    }
-    return arrayLength;//if -1 is returned, then the function was not sucessful
 }
-
 /**
  * Display a Dialog box which provides additional details about the Item clicked
  * @brief MainWindow::on_listWidget_itemClicked
  * @param item
  */
-void MainWindow::on_listWidget_itemClicked(QListWidgetItem *item)
+
+void MainWindow::on_treeWidget_itemClicked(QTreeWidgetItem *item, int column)
 {
-    Dialog infoDialog;
-    infoDialog.setModal(true);
-    infoDialog.exec();
+    QJsonDocument dataDoc;
+    //get the url of the item for the call
+
+    jason.fetchData(item->text(1),dataDoc);
+
+    //convert doc to a JsonObject
+
+    QJsonObject dataObj = dataDoc.object();
+    //create a new dialog box object
+    Dialog infoDialog(this,&dataObj);
+    infoDialog.setModal(true); //blocks interactions with main windows
+    infoDialog.exec(); //launch the dialog box
 }
 

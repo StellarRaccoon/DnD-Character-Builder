@@ -1,6 +1,10 @@
 #include "mainwindow.h"
 
 #include <QApplication>
+#include<QDebug>
+#include<QJsonDocument>
+#include<QJsonObject>
+#include<QJsonArray>
 
 int main(int argc, char *argv[])
 {

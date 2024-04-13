@@ -10,11 +10,13 @@ CONFIG += c++17
 
 SOURCES += \
     dialog.cpp \
+    jsonmanipulation.cpp \
     main.cpp \
     mainwindow.cpp
 
 HEADERS += \
     dialog.h \
+    jsonmanipulation.h \
     mainwindow.h
 
 FORMS += \
