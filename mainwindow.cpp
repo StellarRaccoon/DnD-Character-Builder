@@ -21,35 +21,54 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
-    std::vector<std::string> raceNames {"Elf", "Human", "Dwarf", "Halfling", "Gnome"};
+    //std::vector<std::string> raceNames {"Elf", "Human", "Dwarf", "Halfling", "Gnome"};
 
-    QJsonArray jsonArrayRaceNames = {};
-    QJsonDocument doc(jsonArrayRaceNames);
+    /*------------------------------------*/
+    /*Display race names in tree
+    * Call to API for all races returns {"count":num-of-races, "results":[{"index":race-index,"name":race-name, "url":race-url}]}
+    * Want to display race-name in tree and keep race-url for further use
+    */
 
-    //should probably do something if these fail (like try again)
-    qDebug()<<jason.fetchData("/api/races", doc);
-    jason.getNamesFromJson(doc,jsonArrayRaceNames);
-
-    //get the names and urls from each to get more data
+    /*create the race tree
+    * column 0 is the name of the race
+    * column 1 is hidden and contains the race url
+    */
     ui->treeWidget->setColumnCount(2);
     ui->treeWidget->setColumnHidden(1,true);
-    ui->treeWidget->setHeaderLabels(QStringList()<<"Hey"<<"Cowboy");
+    ui->treeWidget->setHeaderLabels(QStringList()<<"Races");
 
-    AddRoot("Hello", "World");
 
+    //Empty array to hold all the race names
+    QJsonArray jsonArrayRaceNames = {};
+    //empty JSON document to hold the result of the api call to get the race names
+    QJsonDocument doc;
+
+    //should probably do something if these fail (like try again)
+    //place api race call in doc
+    jason.fetchData("/api/races", doc);
+    //put "results" into an array, jsonArrayRaceNames is now an array of JSon objects
+    jason.getNamesFromJson(doc,jsonArrayRaceNames);
+
+    //Create an tree root for every race name object in the array
     for(auto raceNames: jsonArrayRaceNames){
+        //turn the current array item into an object
         QJsonObject raceNameData = raceNames.toObject();
+        //select the race-name and race-url from the current object
         QString raceName = raceNameData.value("name").toString();
         QString raceUrl = raceNameData.value("url").toString();
+        //add a new root to the tree
         QTreeWidgetItem *raceRoot= new QTreeWidgetItem(ui->treeWidget);
+        //set the text of the item
         raceRoot->setText(0,raceName);
         raceRoot->setText(1,raceUrl);
+
         qDebug()<<"url:"<<raceRoot->text(0);
     }
+    /*------------------------------------*/
 }
 
 /**
- * Main Window destructor
+ * Main Window Destructor
 */
 MainWindow::~MainWindow()
 {
@@ -57,7 +76,9 @@ MainWindow::~MainWindow()
 }
 
 /**
- * Add Root to tree in the widget page
+ * Add Root to a tree
+ * @param name - text displayed in column 0 of child
+ * @param description - text displayed in column 1 of child
 */
 void MainWindow::AddRoot(QString name, QString description){
     QTreeWidgetItem *itm = new QTreeWidgetItem(ui->treeWidget);
@@ -69,38 +90,60 @@ void MainWindow::AddRoot(QString name, QString description){
 
 /**
  * Add a child to a tree root
+ * @param *parent - root thee child is under
+ * @param name - text displayed in column 0 of child
+ * @param description - text displayed in column 1 of child
 */
 void MainWindow::addChild(QTreeWidgetItem *parent, QString name, QString description){
+    //create a the child item
     QTreeWidgetItem *itm = new QTreeWidgetItem(ui->treeWidget);
+
+    //set the text of the child
     itm->setText(0, name); //name in column0
     itm->setText(1,description);
+
+    //add child to the parent
     parent->addChild(itm);
 
 }
 /**
- * Display a Dialog box which provides additional details about the Item clicked
+ * When a Race is clicked, display a dialof box with the race name, all the traits of a race with a description of the trait
  * @brief MainWindow::on_listWidget_itemClicked
- * @param item
+ * @param item the race tree item selected, contains the race name in col 0, race url in col 1
  */
 
 void MainWindow::on_treeWidget_itemClicked(QTreeWidgetItem *item, int column)
 {
-    QJsonDocument dataDoc;
-    //get the url of the item for the call
-
-    jason.fetchData(item->text(1),dataDoc);
-
-    //convert doc to a JsonObject
+    //get the race name from the tree item
     QString raceName = item->text(0);
-    //QJsonObject dataObj = dataDoc.object();
-    //create a new dialog box object
+
+    //document to store the API call data in
+    QJsonDocument dataDoc;
+
+    //document to store the API call to race traits
+    //should contain the keys "count" and "results" which is an array of [index, trait names, traitUrl]
     QJsonDocument traitsDoc;
+
+    //get the url of the item for the call from the document
+    //jason.fetchData(item->text(1),dataDoc);
+
+    //empty array to store the names and urls of a traits which belong to a race
     QJsonArray traitsArray = {};
+
+    //get the names and urls of the traits belonging to a race
+    //call to race\traits which returns all the traits of a race{"count": numberofTraits, "results":[{"index":traits-index, "name":trait-name, "url":trait-url}]}
     jason.fetchData(item->text(1).append("/traits"),traitsDoc);
     jason.getNamesFromJson(traitsDoc, traitsArray);
-    qDebug()<<item->text(1).append("/traits");
+
+    qDebug()<<"racial-trait url:"<<item->text(1).append("/traits");
+
+    //create a new racial trait dialog box
     Dialog infoDialog(this,raceName, traitsArray);
-    infoDialog.setModal(true); //blocks interactions with main windows
-    infoDialog.exec(); //launch the dialog box
+
+    //block the main page from being acceses
+    infoDialog.setModal(true);
+
+    //launch dialog box
+    infoDialog.exec();
 }
 
