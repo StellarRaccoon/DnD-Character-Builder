@@ -9,17 +9,20 @@ CONFIG += c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    TreePage.cpp \
     dialogTraits.cpp \
     jsonmanipulation.cpp \
     main.cpp \
     mainwindow.cpp
 
 HEADERS += \
+    TreePage.h \
     dialogTraits.h \
     jsonmanipulation.h \
     mainwindow.h
 
 FORMS += \
+    TreePage.ui \
     dialogTraits.ui \
     mainwindow.ui
 

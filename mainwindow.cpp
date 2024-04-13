@@ -11,6 +11,7 @@
 #include<QTreeWidget>
 #include<QTreeWidgetItem>
 #include"jsonmanipulation.h"
+#include "TreePage.h"
 
 /**
  * Main Window Consturctor
@@ -21,6 +22,14 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
+    /*insert a page into the stacked widget*/
+    QHBoxLayout *layout = new QHBoxLayout;
+    TreePage *newForm=new TreePage("Race");
+    layout->addWidget(newForm);
+    ui->stackedWidget->insertWidget(0,newForm);
+    newForm->populateTree("/api/races");
+    //ui->stackedWidget->setLayout(layout);
+    //ui->centralwidget->addWidget->TreePage("race");
     //std::vector<std::string> raceNames {"Elf", "Human", "Dwarf", "Halfling", "Gnome"};
 
     /*------------------------------------*/
@@ -33,6 +42,7 @@ MainWindow::MainWindow(QWidget *parent)
     * column 0 is the name of the race
     * column 1 is hidden and contains the race url
     */
+    /*
     ui->treeWidget->setColumnCount(2);
     ui->treeWidget->setColumnHidden(1,true);
     ui->treeWidget->setHeaderLabels(QStringList()<<"Races");
@@ -64,6 +74,7 @@ MainWindow::MainWindow(QWidget *parent)
 
         qDebug()<<"url:"<<raceRoot->text(0);
     }
+*/
     /*------------------------------------*/
 }
 
@@ -80,6 +91,7 @@ MainWindow::~MainWindow()
  * @param name - text displayed in column 0 of child
  * @param description - text displayed in column 1 of child
 */
+/*
 void MainWindow::AddRoot(QString name, QString description){
     QTreeWidgetItem *itm = new QTreeWidgetItem(ui->treeWidget);
     itm->setText(0, name); //name in column0
@@ -87,14 +99,14 @@ void MainWindow::AddRoot(QString name, QString description){
     ui->treeWidget->addTopLevelItem(itm);
 
 }
-
+*/
 /**
  * Add a child to a tree root
  * @param *parent - root thee child is under
  * @param name - text displayed in column 0 of child
  * @param description - text displayed in column 1 of child
 */
-void MainWindow::addChild(QTreeWidgetItem *parent, QString name, QString description){
+/*void MainWindow::addChild(QTreeWidgetItem *parent, QString name, QString description){
     //create a the child item
     QTreeWidgetItem *itm = new QTreeWidgetItem(ui->treeWidget);
 
@@ -105,13 +117,13 @@ void MainWindow::addChild(QTreeWidgetItem *parent, QString name, QString descrip
     //add child to the parent
     parent->addChild(itm);
 
-}
+}*/
 /**
  * When a Race is clicked, display a dialof box with the race name, all the traits of a race with a description of the trait
  * @brief MainWindow::on_listWidget_itemClicked
  * @param item the race tree item selected, contains the race name in col 0, race url in col 1
  */
-
+/*
 void MainWindow::on_treeWidget_itemClicked(QTreeWidgetItem *item, int column)
 {
     //get the race name from the tree item
@@ -145,5 +157,5 @@ void MainWindow::on_treeWidget_itemClicked(QTreeWidgetItem *item, int column)
 
     //launch dialog box
     infoDialog.exec();
-}
+}*/
 

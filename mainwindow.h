@@ -19,8 +19,8 @@ QT_END_NAMESPACE
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
-    void AddRoot(QString name, QString Description);
-    void addChild(QTreeWidgetItem *parent, QString name, QString Description);
+    //void AddRoot(QString name, QString Description);
+    //void addChild(QTreeWidgetItem *parent, QString name, QString Description);
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
@@ -33,13 +33,13 @@ private slots:
 
     //void on_listWidget_itemClicked(QListWidgetItem *item);
 
-    void on_treeWidget_itemClicked(QTreeWidgetItem *item, int column);
+   // void on_treeWidget_itemClicked(QTreeWidgetItem *item, int column);
 
 private:
     Ui::MainWindow *ui;
     //QNetworkAccessManager manager;
     JsonManipulation jason;
-    bool fetchData(QString urlPath, QJsonDocument &document);
+    //bool fetchData(QString urlPath, QJsonDocument &document);
     //int getNamesFromJson(QJsonDocument document, QJsonArray &jsonArray);
 };
 #endif // MAINWINDOW_H
