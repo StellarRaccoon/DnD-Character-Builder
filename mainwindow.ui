@@ -18,12 +18,21 @@
     <item>
      <layout class="QGridLayout" name="gridLayout_2">
       <item row="0" column="0">
-       <widget class="QTreeWidget" name="treeWidget">
-        <column>
-         <property name="text">
-          <string notr="true">1</string>
-         </property>
-        </column>
+       <widget class="QStackedWidget" name="stackedWidget">
+        <widget class="QWidget" name="pageRace">
+         <layout class="QGridLayout" name="gridLayout">
+          <item row="0" column="0">
+           <widget class="QTreeWidget" name="treeWidget">
+            <column>
+             <property name="text">
+              <string notr="true">1</string>
+             </property>
+            </column>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+        <widget class="QWidget" name="page_2"/>
        </widget>
       </item>
      </layout>
