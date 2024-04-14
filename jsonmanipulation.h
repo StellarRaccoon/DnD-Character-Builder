@@ -11,6 +11,7 @@ public:
     JsonManipulation();
     int getNamesFromJson(QJsonDocument jsonDoc, QJsonArray &jsonArray);
     bool fetchData(QString urlPath, QJsonDocument &document);
+    QJsonArray getArrayFromJson(QString key,QJsonDocument jsonDoc, QJsonArray &jsonArray);
 private:
     QNetworkAccessManager manager;
 };

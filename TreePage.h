@@ -19,6 +19,9 @@ public:
     ~TreePage();
     QTreeWidget mainTree;
     void populateTree(QString apiUrl);
+    void setCurrentItem(QString itemName);
+    QString getCurrentItem();
+
 
 private slots:
     void on_treeWidget_itemClicked(QTreeWidgetItem *item, int column);
@@ -29,8 +32,9 @@ private:
     void AddRoot(QString name, QString description);
     void buildTreeRoots();
     QVBoxLayout *pageLayout;
-    QPlainTextEdit *pageTitle;
+    QString pageTitle;
     JsonManipulation jason;
+    QString currentItem;
 
 };
 

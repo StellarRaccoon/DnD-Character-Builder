@@ -22,15 +22,15 @@ bool JsonManipulation::fetchData(QString urlPath, QJsonDocument &document){
     QString Response;
     bool success= false;
     if(reply->error()==QNetworkReply::NoError){
-        qDebug()<<"Error: "<<reply->errorString();
+        //qDebug()<<"Error: "<<reply->errorString();
         QByteArray Response = reply->readAll();
-        qDebug()<<"API Response: "<<Response;
+        //qDebug()<<"API Response: "<<Response;
 
         QJsonParseError jsonError;
         document = QJsonDocument::fromJson( Response, &jsonError );
         if( jsonError.error != QJsonParseError::NoError )
         {
-            qDebug() << "fromJson failed: " << jsonError.errorString().toStdString();
+            //qDebug() << "fromJson failed: " << jsonError.errorString().toStdString();
 
         }else{
 
@@ -63,8 +63,26 @@ int JsonManipulation::getNamesFromJson(QJsonDocument jsonDoc, QJsonArray &jsonAr
         {
             jsonArray = jsonObj.value("results").toArray();
             arrayLength=jsonObj.value("count").toInt(-1); //set default value to -1 if it fails
-            qDebug() << "sucess";
+            //qDebug() << "sucess";
         }
     }
     return arrayLength;//if -1 is returned, then the function was not sucessful
+}
+
+QJsonArray JsonManipulation::getArrayFromJson(QString key,QJsonDocument jsonDoc, QJsonArray &jsonArray){
+
+  //  int arrayLength = -1; //if -1 is returned, then the function was not sucessful
+    //check if what is in the document is a viable object
+    if( jsonDoc.isObject())
+    {
+        QJsonObject jsonObj = jsonDoc.object();
+        //check if the keys are count and an array of results
+        if(jsonObj.keys().contains("count")&&jsonObj.keys().contains("results"))
+        {
+            jsonArray = jsonObj.value(key).toArray();
+            //arrayLength=jsonObj.value("count").toInt(-1); //set default value to -1 if it fails
+            //qDebug() << "sucess";
+        }
+    }
+    return jsonArray;//if -1 is returned, then the function was not sucessful
 }

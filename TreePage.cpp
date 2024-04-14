@@ -19,7 +19,7 @@ TreePage::TreePage(QString name, QWidget *parent)
     ui->treeWidget->setColumnCount(2);
     ui->treeWidget->setColumnHidden(1,true);
     ui->treeWidget->setHeaderLabels(QStringList()<<name);
-
+    this->pageTitle=name;
 
 }
 
@@ -84,15 +84,21 @@ void TreePage::populateTree(QString apiUrl){
         raceRoot->setText(0,raceName);
         raceRoot->setText(1,raceUrl);
 
-        qDebug()<<"url:"<<raceRoot->text(0);
+        //qDebug()<<"url:"<<raceRoot->text(0);
     }
 
 }
-
+void TreePage::setCurrentItem(QString itemName){
+    this->currentItem = itemName;
+}
+QString TreePage::getCurrentItem(){
+    return this->currentItem;
+}
 void TreePage::on_treeWidget_itemClicked(QTreeWidgetItem *item, int column)
 {
     //get the race name from the tree item
-    QString raceName = item->text(0);
+    QString itemName = item->text(0);
+    setCurrentItem(item->text(1));
 
     //document to store the API call data in
     QJsonDocument dataDoc;
@@ -102,25 +108,44 @@ void TreePage::on_treeWidget_itemClicked(QTreeWidgetItem *item, int column)
     QJsonDocument traitsDoc;
 
     //get the url of the item for the call from the document
-    //jason.fetchData(item->text(1),dataDoc);
 
     //empty array to store the names and urls of a traits which belong to a race
     QJsonArray traitsArray = {};
 
-    //get the names and urls of the traits belonging to a race
-    //call to race\traits which returns all the traits of a race{"count": numberofTraits, "results":[{"index":traits-index, "name":trait-name, "url":trait-url}]}
-    jason.fetchData(item->text(1).append("/traits"),traitsDoc);
-    jason.getNamesFromJson(traitsDoc, traitsArray);
 
-    qDebug()<<"racial-trait url:"<<item->text(1).append("/traits");
+    /**TODO: Simplify this*/
 
-    //create a new racial trait dialog box
-    Dialog infoDialog(this,raceName, traitsArray);
+    //if(QString::compare(this->pageTitle, "Races")){
+        //get the names and urls of the traits belonging to a race
+        //call to race\traits which returns all the traits of a race{"count": numberofTraits, "results":[{"index":traits-index, "name":trait-name, "url":trait-url}]}
+        jason.fetchData(item->text(1).append("/traits"),traitsDoc);
+        jason.getNamesFromJson(traitsDoc, traitsArray);
+       // qDebug()<<"racial-trait url:"<<item->text(1).append("/traits");
+        //create a new racial trait dialog box
+        Dialog infoDialog(this,itemName, traitsArray);
+        //block the main page from being acceses
+        infoDialog.setModal(true);
+        //launch dialog box
+        infoDialog.exec();
+    /*
+    }
 
-    //block the main page from being acceses
-    infoDialog.setModal(true);
+    else if(QString::compare(this->pageTitle, "Classes")){
+        //get the names and urls of the traits belonging to a race
+        //call to race\traits which returns all the traits of a race{"count": numberofTraits, "results":[{"index":traits-index, "name":trait-name, "url":trait-url}]}
+        jason.fetchData(item->text(1).append("/traits"),traitsDoc);
+        jason.getNamesFromJson(traitsDoc, traitsArray);
+        qDebug()<<"racial-trait url:"<<item->text(1).append("/traits");
+        //create a new racial trait dialog box
+        Dialog infoDialog(this,itemName, traitsArray);
+        //block the main page from being acceses
+        infoDialog.setModal(true);
+        //launch dialog box
+        infoDialog.exec();
 
-    //launch dialog box
-    infoDialog.exec();
+
+    }
+*/
+
 }
 
