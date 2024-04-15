@@ -2,6 +2,7 @@
 #include<QJsonDocument>
 #include"jsonmanipulation.h"
 #include<QString>
+#include<QJsonArray>
 UserCharacter::UserCharacter() {
     userAbilityScore["cha"] = 0;
     userAbilityScore["con"] = 0;
@@ -11,6 +12,53 @@ UserCharacter::UserCharacter() {
     userAbilityScore["wis"] = 0;
 }
 
+/**
+ * Add the full proficiency json obj to the user character array from a mini prof object
+ * */
+void UserCharacter::addProficiency(QJsonObject profBasic)
+{
+    userProficiencyUrls.append(jason.fetchData(profBasic.value("url").toString()).object());
+}
+void UserCharacter::setUserClass(QString classUrl){
+    userClassUrl=classUrl;
+
+
+    QJsonObject classObj = jason.fetchData(classUrl).object();
+
+
+
+    userClass=classObj.value("name").toString();
+    userHitDie=classObj.value("hit_die").toInt();
+
+
+    //add starting profs
+    if(classObj.contains("proficiencies")){
+        QJsonArray classProficiencies= classObj.value("proficiencies").toArray();
+        for(auto prof: classProficiencies){
+            addProficiency(prof.toObject());
+            if(!userProficiencyUrls.isEmpty()){
+                qDebug()<<userProficiencyUrls.last()<<": ";
+            }
+        }
+    }
+    if(classObj.contains("saving_throws")){
+        QJsonArray savingThrows= classObj.value("saving_throws").toArray();
+        for(auto st: savingThrows){
+            userSavingThrows.append(st.toObject().value("name").toString());
+        }
+    }
+    if(classObj.contains("saving_throws")){
+        QJsonArray startingEquipments= classObj.value("starting_equipment").toArray();
+        for(auto equip: startingEquipments){
+            QJsonObject equipData = equip.toObject();
+            QString equipName=equipData.value("equipment").toObject().value("name").toString();
+            userStartingEquipment[equipName]= equipData.value("quantity").toInt();
+        }
+    }
+
+
+
+}
 /** when a user race is slected..
  *  set ability bonuses
  *  proficienes
@@ -20,20 +68,18 @@ UserCharacter::UserCharacter() {
 void UserCharacter::setUserRace(QString raceUrl){
     userRaceURL=raceUrl;
 
-    QJsonDocument raceDoc;
-    jason.fetchData(raceUrl,raceDoc);
-    //jason.getArrayFromJson("traits",raceDoc, userRaceTraits);
-    QJsonObject raceObj = raceDoc.object();
+
+    QJsonObject raceObj = jason.fetchData(raceUrl).object();
     QJsonArray startingProficencies={};
     QJsonArray languages={};
     QJsonArray abilityBonuses={};
-    QJsonArray traits={};
-    //will need to check for ability bonus options and starting profficency options
+    QJsonArray raceTraits={};
+
+
+    //Add Ability Scores to character. Ability scoresis a map of Ability: score
+    //these are bonuses and will be added to the dice roll
     if(raceObj.contains("ability_bonuses")){
-        qDebug()<<"Abilities  True!";
-        //jason.getArrayFromJson("ability_bonuses",raceDoc, abilityBonuses);
         abilityBonuses = raceObj.value("ability_bonuses").toArray();
-        //set ability bonuses
         for(auto abilityBonus: abilityBonuses){
             QJsonObject bonusData = abilityBonus.toObject();
             QString abilityIndex=bonusData.value("ability_score").toObject().value("index").toString();
@@ -41,13 +87,12 @@ void UserCharacter::setUserRace(QString raceUrl){
             qDebug()<<abilityIndex<<": "<<userAbilityScore[abilityIndex];
         }
     }
+
+    //add starting profs
     if(raceObj.contains("starting_proficiencies")){
-        qDebug()<<"StartProfs True!";
-        //jason.getArrayFromJson("starting_proficiencies",raceDoc, startingProficencies);
         startingProficencies= raceObj.value("starting_proficiencies").toArray();
-        for(auto profs: startingProficencies){
-            QJsonObject profObj = profs.toObject();
-            userProficiencyUrls.append(profObj.value("index").toString());
+        for(auto prof: startingProficencies){
+            addProficiency(prof.toObject());
             if(!userProficiencyUrls.isEmpty()){
             qDebug()<<userProficiencyUrls.last()<<": ";
             }
@@ -55,7 +100,6 @@ void UserCharacter::setUserRace(QString raceUrl){
     }
     if(raceObj.contains("languages")){
         languages= raceObj.value("languages").toArray();
-        //jason.getArrayFromJson("languages",raceDoc, languages);
         for(auto langs: languages){
             QJsonObject langObj = langs.toObject();
             userLanguages.append(langObj.value("index").toString());
@@ -64,17 +108,38 @@ void UserCharacter::setUserRace(QString raceUrl){
             }
         }
     }
+
+    //Add the Json Object of the trait to the character array of traits
+    //need to loop through all the traits in the array, go to the url, get the object
     if(raceObj.contains("traits")){
-        traits= raceObj.value("traits").toArray();
-        for(auto trait:  traits){
-            QJsonObject traitObj = trait.toObject();
-            userRaceTraits.append(traitObj.value("index").toString());
-            if(!userRaceTraits.isEmpty()){
-                qDebug()<<userRaceTraits.last()<<": ";
+        //get the array of traits from the race object, and loop through them
+        raceTraits = raceObj.value("traits").toArray();
+        for(auto trait:raceTraits){
+            //get the url of the current trait
+            QString traitUrl=trait.toObject().value("url").toString();
+            //call the api on the trait and get the trait object
+            //convert into an object
+            QJsonObject traitObj = jason.fetchData(traitUrl).object();
+            //check if the trait has  proficencies to add
+            QJsonArray traitProfs = traitObj.value("proficiencies").toArray();
+            if(!traitProfs.isEmpty()){
+                for(auto prof:traitProfs){
+                    addProficiency(prof.toObject());
+                }
             }
+            //add all languages from trait
+            if(!traitObj.contains("languages")){
+                languages= traitObj.value("languages").toArray();
+                for(auto langs: languages){
+                QJsonObject langObj = langs.toObject();
+                userLanguages.append(langObj.value("index").toString());
+                }
+
+            }
+            //add the object of the trait to the character array
+            userRaceTraits.append(traitObj);
         }
     }
-
 }
 
 QString UserCharacter::toString(){
@@ -89,17 +154,25 @@ QString UserCharacter::toString(){
     for(int i=0;i<userLanguages.size(); i++){
         langs.append(QString("%1, ").arg(userLanguages.at(i)));
     }
-    QString profs = "\nProficiencies: ";
-    for(int i=0;i<userProficiencyUrls.size(); i++){
-        profs.append(QString("%1, ").arg(userProficiencyUrls.at(i)));
-    }
-    QString traitStr ="\ntraits: ";
-    for(int i=0;i<userRaceTraits.size(); i++){
-        traitStr.append(QString("%1, ").arg(userRaceTraits.at(i)));
-    }
+    // QString profs = "\nProficiencies: ";
+    // for(int i=0;i<userProficiencyUrls.size(); i++){
+    //     profs.append(QString("%1, ").arg(userProficiencyUrls.at(i)));
+    // }
+    // QString traitStr ="\ntraits: ";
+    // for(int i=0;i<userRaceTraits.size(); i++){
+    //     traitStr.append(QString("%1, ").arg(userRaceTraits.at(i)));
+    // }
     characterStr=characterStr.append(abilityStr);
     characterStr=characterStr.append(langs);
-    characterStr=characterStr.append(profs);
-    characterStr=characterStr.append(traitStr);
+    //characterStr=characterStr.append(profs);
+    //characterStr=characterStr.append(traitStr);
     return characterStr;
+}
+
+QMap<QString, int> UserCharacter::getAbilityScores(){
+    return userAbilityScore;
+}
+void UserCharacter::increaseAbilityScore(QString index, int value){
+    userAbilityScore[index] = userAbilityScore[index]+value;
+
 }

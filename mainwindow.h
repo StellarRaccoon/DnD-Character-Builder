@@ -10,6 +10,8 @@
 #include<UserCharacter.h>
 //#include "secdialog.h"
 #include<QStackedWidget>
+#include"AbilityScorePage.h"
+#include"SheetPage.h"
 QT_BEGIN_NAMESPACE
 //class QPushButton;
 namespace Ui {
@@ -21,6 +23,9 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 public:
+    /**
+     * Main Window Consturctor
+    */
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
     int currentIndex;
@@ -36,5 +41,7 @@ private:
     Ui::MainWindow *ui;
     TreePage *classPage;
     TreePage *racePage;
+    AbilityScorePage *scorePage;
+    SheetPage *docPage;
 };
 #endif // MAINWINDOW_H

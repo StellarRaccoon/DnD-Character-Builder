@@ -1,32 +1,29 @@
-#include "dialogTraits.h"
-#include "ui_dialogTraits.h"
-#include<QJsonDocument>
-#include<QJsonDocument>
-#include<QBoxLayout>
-#include<QPlainTextEdit>
+#include "RaceDialog.h"
+#include "ui_RaceDialog.h"
+#include<QVBoxLayout>
 #include<QGroupBox>
-Dialog::Dialog(QWidget *parent, QString raceName, QJsonArray racialTraitArray)
+#include<QPlainTextEdit>
+RaceDialog::RaceDialog(QString raceName,QJsonArray traitArray,QWidget *parent)
     : QDialog(parent)
-    , ui(new Ui::Dialog)
+    , ui(new Ui::RaceDialog)
 {
-    //QJsonObject dataObj = dataDoc->object();
-    //jackson.getNamesFromJson(dataDoc)
+
     QVBoxLayout *dialogLayout = new QVBoxLayout(this);
     qDebug()<<"In Dialog";
     ui->setupUi(this);
-    ui->dialogTitle->setText(raceName);
-    ui->dialogTitle->setReadOnly(true);
+    ui->pageTitle->setText(raceName);
+
 
     //create a vertical layout box to add traits to the ui
-    for(auto racialTrait: racialTraitArray){
+    for(auto racialTrait: traitArray){
         QJsonObject traitNameData = racialTrait.toObject();
         QString traitName = traitNameData.value("name").toString();
         QString traitUrl = traitNameData.value("url").toString();
 
         //go to the url and get the description
-        QJsonDocument traitData;
+
         qDebug()<<"traitURL: "<<traitUrl;
-        jackson.fetchData(traitUrl,traitData);
+        QJsonDocument traitData=jackson.fetchData(traitUrl);
 
         //Get the description by turning the doc into and object, selecting the desciption key, and getting the first description in the array
         QString traitDescription=traitData.object().value("desc").toArray()[0].toString();
@@ -43,11 +40,12 @@ Dialog::Dialog(QWidget *parent, QString raceName, QJsonArray racialTraitArray)
         //QTreeWidgetItem *raceRoot= new QTreeWidgetItem(ui->treeWidget);
     }
     //
-   // setLayout(dialogLayout);
+    // setLayout(dialogLayout);
 
 }
 
-Dialog::~Dialog()
+
+RaceDialog::~RaceDialog()
 {
     delete ui;
 }

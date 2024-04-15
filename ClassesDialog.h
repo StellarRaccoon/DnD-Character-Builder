@@ -14,9 +14,7 @@ class ClassesDialog : public QDialog
     Q_OBJECT
 
 public:
-    explicit ClassesDialog(QString className = "",
-                           QWidget *parent = nullptr,
-                           QJsonArray classArray = {});
+    explicit ClassesDialog(QString className,QString spellcast, int hitDie, QString savingThrows, QWidget *parent=nullptr);
     ~ClassesDialog();
 
 private:

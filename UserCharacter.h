@@ -9,18 +9,26 @@ class UserCharacter
 {
 public:
     UserCharacter();
-    void setUserRace(QString raceURL);
+    void setUserRace(QString raceUrl);
+    void setUserClass(QString classUrl);
     QString getUserRace();
     QString toString();
+    QMap<QString, int> getAbilityScores();
+    void increaseAbilityScore(QString index, int value);
 private:
-    QList<QString> userProficiencyUrls; //should be seperated by types?
+    QMap<QString, int> userAbilityScore;
+    QList<QJsonObject> userProficiencyUrls; //should be seperated by types?
     QString userClass;
+    QString userClassUrl;
     QString userRaceURL; //one for the url one for the name
     QMap<QString, int> userSkills;
-    QMap<QString, int> userAbilityScore;
     QList<QString> userLanguages;
-    QList<QString> userRaceTraits;
+    QList<QJsonObject> userRaceTraits;
     JsonManipulation jason;
+    QList<QString> userSavingThrows;
+    void addProficiency(QJsonObject profBasic);
+    int userHitDie;
+    QMap<QString, int> userStartingEquipment;
     //QList<QString> userRaceTraits;
 
 

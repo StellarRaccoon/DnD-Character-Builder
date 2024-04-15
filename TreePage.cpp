@@ -4,7 +4,9 @@
 #include<QJsonObject>
 #include<QJsonArray>
 #include"jsonmanipulation.h"
-#include"dialogTraits.h"
+#include"RaceDialog.h"
+#include<QString>
+#include<ClassesDialog.h>
 TreePage::TreePage(QString name, QWidget *parent)
     : QWidget(parent)
     , ui(new Ui::TreePage)
@@ -60,16 +62,9 @@ void TreePage::addChild(QTreeWidgetItem *parent, QString name, QString descripti
 
 }
 void TreePage::populateTree(QString apiUrl){
-    //Empty array to hold all the race names
-    QJsonArray jsonArrayRaceNames = {};
-    //empty JSON document to hold the result of the api call to get the race names
-    QJsonDocument doc;
-
     //should probably do something if these fail (like try again)
-    //place api race call in doc
-    jason.fetchData(apiUrl, doc);
     //put "results" into an array, jsonArrayRaceNames is now an array of JSon objects
-    jason.getNamesFromJson(doc,jsonArrayRaceNames);
+    QJsonArray jsonArrayRaceNames=jason.getArrayFromJson("results",jason.fetchData(apiUrl));
 
     //Create an tree root for every race name object in the array
     for(auto raceNames: jsonArrayRaceNames){
@@ -98,54 +93,47 @@ void TreePage::on_treeWidget_itemClicked(QTreeWidgetItem *item, int column)
 {
     //get the race name from the tree item
     QString itemName = item->text(0);
-    setCurrentItem(item->text(1));
-
-    //document to store the API call data in
-    QJsonDocument dataDoc;
-
-    //document to store the API call to race traits
-    //should contain the keys "count" and "results" which is an array of [index, trait names, traitUrl]
-    QJsonDocument traitsDoc;
-
-    //get the url of the item for the call from the document
-
-    //empty array to store the names and urls of a traits which belong to a race
-    QJsonArray traitsArray = {};
-
-
+    QString title=this->objectName();
+    qDebug()<<"Clicked page title: "<<this->objectName();
     /**TODO: Simplify this*/
-
-    //if(QString::compare(this->pageTitle, "Races")){
+    QJsonDocument jsonDoc;
+    if(!QString::compare(title, "racePage")){
         //get the names and urls of the traits belonging to a race
         //call to race\traits which returns all the traits of a race{"count": numberofTraits, "results":[{"index":traits-index, "name":trait-name, "url":trait-url}]}
-        jason.fetchData(item->text(1).append("/traits"),traitsDoc);
-        jason.getNamesFromJson(traitsDoc, traitsArray);
+        QJsonDocument jsonDoc=jason.fetchData(item->text(1).append("/traits"));
+        QJsonArray traitsArray = jason.getArrayFromJson("results",jsonDoc);
        // qDebug()<<"racial-trait url:"<<item->text(1).append("/traits");
         //create a new racial trait dialog box
-        Dialog infoDialog(this,itemName, traitsArray);
+        RaceDialog infoDialog(itemName, traitsArray);
         //block the main page from being acceses
         infoDialog.setModal(true);
         //launch dialog box
         infoDialog.exec();
-    /*
     }
 
-    else if(QString::compare(this->pageTitle, "Classes")){
+    else if(!QString::compare(title, "classPage")){
         //get the names and urls of the traits belonging to a race
-        //call to race\traits which returns all the traits of a race{"count": numberofTraits, "results":[{"index":traits-index, "name":trait-name, "url":trait-url}]}
-        jason.fetchData(item->text(1).append("/traits"),traitsDoc);
-        jason.getNamesFromJson(traitsDoc, traitsArray);
-        qDebug()<<"racial-trait url:"<<item->text(1).append("/traits");
-        //create a new racial trait dialog box
-        Dialog infoDialog(this,itemName, traitsArray);
-        //block the main page from being acceses
-        infoDialog.setModal(true);
+        //call to get the JSON object of the class
+        QJsonObject classObj= jason.fetchData(item->text(1)).object();
+        QString spellcast="n/a";
+        if(classObj.contains("spellcasting")){
+            spellcast = classObj.value("spellcasting").toObject().value("spellcasting_ability").toString();
+
+        }
+
+        QJsonArray savingThrows = classObj.value("saving_throws").toArray();
+        QString savingThrowStr="";
+        for (int i = 0; i < savingThrows.size(); ++i) {
+            QString stStr= savingThrows.at(i).toObject().value("name").toString();
+            savingThrowStr.append(stStr+" ");
+        }
+        ClassesDialog classInfoDialog(classObj.value("name").toString(),spellcast, classObj.value("hit_die").toInt(), savingThrowStr);
+
+        classInfoDialog.setModal(true);
         //launch dialog box
-        infoDialog.exec();
+        classInfoDialog.exec();
 
 
     }
-*/
-
 }
 

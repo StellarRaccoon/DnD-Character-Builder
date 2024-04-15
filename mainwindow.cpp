@@ -12,7 +12,7 @@
 #include "TreePage.h"
 #include"UserCharacter.h"
 #include<QMessageBox>
-
+#include"SheetPage.h"
 /**
  * Main Window Consturctor
 */
@@ -33,11 +33,13 @@ MainWindow::MainWindow(QWidget *parent)
     //TreePage *classPage=new TreePage("Classes");
     //layout->addWidget(classPage);
     //ui->stackedWidget->insertWidget(0,classPage);
-    ui->page_5->populateTree("/api/races");
-    ui->page_6->populateTree("/api/classes");
+    ui->racePage->populateTree("/api/races");
+    ui->classPage->populateTree("/api/classes");
 
-    this->classPage= ui->page_6;
-    this->racePage= ui->page_5;
+    this->classPage= ui->classPage;
+    this->racePage= ui->racePage;
+    this->scorePage= ui->scorePage;
+    this->docPage = ui->docPage;
     currentIndex = ui->stackedWidget->currentIndex();
     /*set Up Button Clicks*/
     connect(ui->nextPageButton, SIGNAL(QPushButton::clicked()), this,SLOT(on_nextPageButton_clicked()));
@@ -59,13 +61,23 @@ void MainWindow::on_nextPageButton_clicked()
     if (currentIndex == 0){
         userCharacter->setUserRace(this->racePage->getCurrentItem());
     }
+    else if(currentIndex==1){
+        userCharacter->setUserClass(this->classPage->getCurrentItem());
+        scorePage->updatedScores = userCharacter->getAbilityScores();
+    }
+    else if(currentIndex==2){
+        QMapIterator<QString, int> i(scorePage->updatedScores);
+        while (i.hasNext()) {
+            i.next();
+
+            userCharacter->increaseAbilityScore(i.key(), i.value());
+            //cout << qPrintable(i.key()) << ": " << i.value() << endl;
+        }
+    }
     ui->stackedWidget->setCurrentIndex(ui->stackedWidget->currentIndex()+1);
 
     currentIndex = ui->stackedWidget->currentIndex();
-    //qDebug()<<userCharacter->toString();
-    QMessageBox msgBox;
-    msgBox.setText(userCharacter->toString());
-    msgBox.exec();
+
 }
 void MainWindow::on_backPageButton_clicked()
 {

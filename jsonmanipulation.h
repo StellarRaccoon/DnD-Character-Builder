@@ -9,9 +9,9 @@ class JsonManipulation
 {
 public:
     JsonManipulation();
-    int getNamesFromJson(QJsonDocument jsonDoc, QJsonArray &jsonArray);
-    bool fetchData(QString urlPath, QJsonDocument &document);
-    QJsonArray getArrayFromJson(QString key,QJsonDocument jsonDoc, QJsonArray &jsonArray);
+    //int getArrayFromJson(QJsonDocument jsonDoc, QJsonArray &jsonArray);
+    QJsonDocument fetchData(QString urlPath);
+    QJsonArray getArrayFromJson(QString key,QJsonDocument jsonDoc);
 private:
     QNetworkAccessManager manager;
 };
