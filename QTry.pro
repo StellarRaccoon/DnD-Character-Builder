@@ -15,6 +15,7 @@ SOURCES += \
     SheetPage.cpp \
     TreePage.cpp \
     UserCharacter.cpp \
+    extrasPage.cpp \
     jsonmanipulation.cpp \
     main.cpp \
     mainwindow.cpp
@@ -24,8 +25,10 @@ HEADERS += \
     ClassesDialog.h \
     RaceDialog.h \
     SheetPage.h \
+    SmallClasses.h \
     TreePage.h \
     UserCharacter.h \
+    extrasPage.h \
     jsonmanipulation.h \
     mainwindow.h
 
@@ -35,6 +38,7 @@ FORMS += \
     RaceDialog.ui \
     SheetPage.ui \
     TreePage.ui \
+    extrasPage.ui \
     mainwindow.ui
 
 # Default rules for deployment.

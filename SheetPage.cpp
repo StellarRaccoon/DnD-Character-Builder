@@ -14,10 +14,15 @@ SheetPage::SheetPage(QWidget *parent)
     ui->setupUi(this);
 
     //set class
-    ui->classBox=MainWindow::userCharacter
+    ui->classBox->setText(userChar->getUserRace());
     //set race
     //set saving throws
     //set profs
+    ui->playerNameBox->setText(userChar->getPlayerName());
+    ui->charNameBox->setText(userChar->getCharacterName());
+    ui->backgroundNameBox->setText(userChar->getCharacterBackground());
+    ui->alignmentBox->setText(userChar->getCharacterAlignment());
+
 
 
 }

@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>extrasPage</class>
+ <widget class="QWidget" name="extrasPage">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1243</width>
+    <height>784</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <widget class="QWidget" name="">
+   <property name="geometry">
+    <rect>
+     <x>150</x>
+     <y>240</y>
+     <width>471</width>
+     <height>151</height>
+    </rect>
+   </property>
+   <layout class="QFormLayout" name="formLayout">
+    <item row="0" column="0">
+     <widget class="QLabel" name="label_2">
+      <property name="text">
+       <string>Player Name</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="1">
+     <widget class="QLineEdit" name="playerNameBox"/>
+    </item>
+    <item row="1" column="0">
+     <widget class="QLabel" name="label">
+      <property name="text">
+       <string>Character Name</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="1">
+     <widget class="QLineEdit" name="characterNameBox"/>
+    </item>
+    <item row="2" column="1">
+     <widget class="QComboBox" name="backgroundBox">
+      <property name="currentText">
+       <string>Acolyte</string>
+      </property>
+      <item>
+       <property name="text">
+        <string>Acolyte</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Charlatan</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Spy</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Entertainer</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Folk Hero</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Hermit</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Gladiator</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Knight</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Noble</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Outlander</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Pirate</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Guild Member</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Sage</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Sailor</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Soldier</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Urchin</string>
+       </property>
+      </item>
+     </widget>
+    </item>
+    <item row="3" column="0">
+     <widget class="QLabel" name="label_4">
+      <property name="text">
+       <string>Alignment</string>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="1">
+     <widget class="QComboBox" name="alignmentBox"/>
+    </item>
+    <item row="2" column="0">
+     <widget class="QLabel" name="label_3">
+      <property name="text">
+       <string>Background</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

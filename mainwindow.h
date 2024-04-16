@@ -12,6 +12,7 @@
 #include<QStackedWidget>
 #include"AbilityScorePage.h"
 #include"SheetPage.h"
+#include"extrasPage.h"
 QT_BEGIN_NAMESPACE
 //class QPushButton;
 namespace Ui {
@@ -42,6 +43,7 @@ private:
     TreePage *classPage;
     TreePage *racePage;
     AbilityScorePage *scorePage;
+    extrasPage *extrasPage;
     SheetPage *docPage;
 };
 #endif // MAINWINDOW_H

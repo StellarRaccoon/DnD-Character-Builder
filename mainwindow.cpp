@@ -40,7 +40,9 @@ MainWindow::MainWindow(QWidget *parent)
     this->racePage= ui->racePage;
     this->scorePage= ui->scorePage;
     this->docPage = ui->docPage;
+    this->extrasPage = ui->extrasPage;
     currentIndex = ui->stackedWidget->currentIndex();
+    docPage->userChar = this->userCharacter;
     /*set Up Button Clicks*/
     connect(ui->nextPageButton, SIGNAL(QPushButton::clicked()), this,SLOT(on_nextPageButton_clicked()));
     connect(ui->backPageButton, SIGNAL(QPushButton::clicked()), this,SLOT(on_backPageButton_clicked()));
@@ -74,6 +76,14 @@ void MainWindow::on_nextPageButton_clicked()
             //cout << qPrintable(i.key()) << ": " << i.value() << endl;
         }
     }
+    else if(currentIndex==3){
+        //get data from extras page
+        userCharacter->setCharacterName(this->extrasPage->getCharacterName());
+        userCharacter->setCharacterBackground(this->extrasPage->getCharacterBackground());
+        userCharacter->setPlayerName(this->extrasPage->getPlayerName());
+        userCharacter->setCharacterAlignment(this->extrasPage->getCharacterAlignment());
+    }
+
     ui->stackedWidget->setCurrentIndex(ui->stackedWidget->currentIndex()+1);
 
     currentIndex = ui->stackedWidget->currentIndex();

@@ -3,21 +3,40 @@
 #include"jsonmanipulation.h"
 #include<QString>
 #include<QJsonArray>
+#include"SmallClasses.h"
+
 UserCharacter::UserCharacter() {
-    userAbilityScore["cha"] = 0;
-    userAbilityScore["con"] = 0;
-    userAbilityScore["dex"] = 0;
-    userAbilityScore["int"] = 0;
-    userAbilityScore["str"] = 0;
-    userAbilityScore["wis"] = 0;
+
+
+    isSavingThrow = new AbilityValues();
+    userAbilityScore=new AbilityValues();
+    userProfMod =2;
 }
 
+int UserCharacter::calculateAbilityMod(int score, int bonus){
+    return ceil((score-10)/2)+bonus;
+}
 /**
  * Add the full proficiency json obj to the user character array from a mini prof object
  * */
 void UserCharacter::addProficiency(QJsonObject profBasic)
 {
-    userProficiencyUrls.append(jason.fetchData(profBasic.value("url").toString()).object());
+    QJsonObject profObj=jason.fetchData(profBasic.value("url").toString()).object();
+    //get the name
+    //get the type
+    QString profType = profObj.value("type").toString();
+    QString profName= profObj.value("name").toString();
+    if(QString::compare("Armor", profName)==0){
+        armorProfs.append(profName);
+    }else if(QString::compare("Weapons", profName)==0){
+        weaponProfs.append(profName);
+    }else if(QString::compare("Tools", profName)==0){
+        toolProfs.append(profName);
+    }else if(QString::compare("Saving Throws", profName)){
+        otherProfs.append(profName);
+    }
+
+
 }
 void UserCharacter::setUserClass(QString classUrl){
     userClassUrl=classUrl;
@@ -35,19 +54,21 @@ void UserCharacter::setUserClass(QString classUrl){
     if(classObj.contains("proficiencies")){
         QJsonArray classProficiencies= classObj.value("proficiencies").toArray();
         for(auto prof: classProficiencies){
+
             addProficiency(prof.toObject());
-            if(!userProficiencyUrls.isEmpty()){
-                qDebug()<<userProficiencyUrls.last()<<": ";
-            }
+
         }
     }
     if(classObj.contains("saving_throws")){
         QJsonArray savingThrows= classObj.value("saving_throws").toArray();
+
         for(auto st: savingThrows){
-            userSavingThrows.append(st.toObject().value("name").toString());
+            QString stString =st.toObject().value("index").toString();
+            isSavingThrow->setFromIndex(stString, 1);
+
         }
     }
-    if(classObj.contains("saving_throws")){
+    if(classObj.contains("starting_equipment")){
         QJsonArray startingEquipments= classObj.value("starting_equipment").toArray();
         for(auto equip: startingEquipments){
             QJsonObject equipData = equip.toObject();
@@ -55,10 +76,9 @@ void UserCharacter::setUserClass(QString classUrl){
             userStartingEquipment[equipName]= equipData.value("quantity").toInt();
         }
     }
-
-
-
 }
+
+
 /** when a user race is slected..
  *  set ability bonuses
  *  proficienes
@@ -83,8 +103,7 @@ void UserCharacter::setUserRace(QString raceUrl){
         for(auto abilityBonus: abilityBonuses){
             QJsonObject bonusData = abilityBonus.toObject();
             QString abilityIndex=bonusData.value("ability_score").toObject().value("index").toString();
-            userAbilityScore[abilityIndex]= bonusData.value("bonus").toInt();
-            qDebug()<<abilityIndex<<": "<<userAbilityScore[abilityIndex];
+            isSavingThrow->setFromIndex(abilityIndex,bonusData.value("bonus").toInt());
         }
     }
 
@@ -93,9 +112,7 @@ void UserCharacter::setUserRace(QString raceUrl){
         startingProficencies= raceObj.value("starting_proficiencies").toArray();
         for(auto prof: startingProficencies){
             addProficiency(prof.toObject());
-            if(!userProficiencyUrls.isEmpty()){
-            qDebug()<<userProficiencyUrls.last()<<": ";
-            }
+
         }
     }
     if(raceObj.contains("languages")){
@@ -137,11 +154,12 @@ void UserCharacter::setUserRace(QString raceUrl){
 
             }
             //add the object of the trait to the character array
-            userRaceTraits.append(traitObj);
+            UserTrait *uT = new UserTrait(traitObj.value("name").toString(), traitObj.value("desc").toString());
+            userRaceTraits.append(*uT);
         }
     }
 }
-
+/*
 QString UserCharacter::toString(){
     QString characterStr = QString("Character Race: %1").arg(userRaceURL);
     QString abilityStr="\nAbilities: ";
@@ -168,11 +186,37 @@ QString UserCharacter::toString(){
     //characterStr=characterStr.append(traitStr);
     return characterStr;
 }
-
-QMap<QString, int> UserCharacter::getAbilityScores(){
-    return userAbilityScore;
+*/
+AbilityValues UserCharacter::getAbilityScores(){
+    return *userAbilityScore;
 }
-void UserCharacter::increaseAbilityScore(QString index, int value){
-    userAbilityScore[index] = userAbilityScore[index]+value;
 
+QString UserCharacter::getUserRace(){
+    return userRaceURL;
+
+}
+void UserCharacter::setCharacterName(QString characterName){
+    this->characterName=characterName;
+}
+void UserCharacter::setCharacterBackground(QString characterBackground){
+    this->characterBackground=characterBackground;
+}
+void UserCharacter::setPlayerName(QString playerName){
+    this->playerName=playerName;
+}
+void UserCharacter::setCharacterAlignment(QString characterAlignment){
+    this->characterAlignment=characterAlignment;
+}
+QList<QString> UserCharacter::getCharacterProfs(char profsToGet){
+    QList<QString> profs;
+    if(profsToGet=='w'){
+        profs=weaponProfs;
+    }else if(profsToGet=='t'){
+        profs=toolProfs;
+    }else if(profsToGet=='a'){
+        profs=armorProfs;
+    }else{
+        profs=otherProfs;
+    }
+    return profs;
 }

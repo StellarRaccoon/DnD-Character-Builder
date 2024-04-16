@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
-    <height>400</height>
+    <width>1256</width>
+    <height>800</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -31,11 +31,12 @@
     <item>
      <widget class="QStackedWidget" name="stackedWidget">
       <property name="currentIndex">
-       <number>0</number>
+       <number>3</number>
       </property>
       <widget class="TreePage" name="racePage"/>
       <widget class="TreePage" name="classPage"/>
       <widget class="AbilityScorePage" name="scorePage"/>
+      <widget class="extrasPage" name="extrasPage"/>
       <widget class="SheetPage" name="docPage"/>
      </widget>
     </item>
@@ -85,7 +86,7 @@ font: 800 9pt &quot;Artifakt Element Black&quot;;</string>
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>800</width>
+     <width>1256</width>
      <height>25</height>
     </rect>
    </property>
@@ -109,6 +110,12 @@ font: 800 9pt &quot;Artifakt Element Black&quot;;</string>
    <class>SheetPage</class>
    <extends>QWidget</extends>
    <header>SheetPage.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>extrasPage</class>
+   <extends>QWidget</extends>
+   <header>extrasPage.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

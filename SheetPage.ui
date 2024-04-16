@@ -6,843 +6,846 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1167</width>
-    <height>770</height>
+    <width>1206</width>
+    <height>840</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <widget class="QTabWidget" name="tabWidget">
-   <property name="geometry">
-    <rect>
-     <x>30</x>
-     <y>330</y>
-     <width>621</width>
-     <height>431</height>
-    </rect>
-   </property>
-   <widget class="QWidget" name="tab">
-    <attribute name="title">
-     <string>Tab 1</string>
-    </attribute>
-   </widget>
-   <widget class="QWidget" name="tab_2">
-    <attribute name="title">
-     <string>Tab 2</string>
-    </attribute>
-   </widget>
-  </widget>
-  <widget class="QWidget" name="">
-   <property name="geometry">
-    <rect>
-     <x>300</x>
-     <y>20</y>
-     <width>741</width>
-     <height>71</height>
-    </rect>
-   </property>
-   <layout class="QGridLayout" name="gridLayout">
-    <item row="0" column="0">
-     <widget class="QLineEdit" name="classBox"/>
-    </item>
-    <item row="1" column="0">
-     <widget class="QLabel" name="classNameBox">
-      <property name="text">
-       <string>Class &amp; Level</string>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignCenter</set>
-      </property>
+  <layout class="QGridLayout" name="gridLayout_3">
+   <item row="1" column="0">
+    <layout class="QGridLayout" name="abilityLayout">
+     <item row="0" column="6">
+      <widget class="QLabel" name="label_13">
+       <property name="text">
+        <string>Charisma</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="6">
+      <widget class="QTextEdit" name="chaModBox"/>
+     </item>
+     <item row="1" column="5">
+      <widget class="QTextEdit" name="wisModBox"/>
+     </item>
+     <item row="1" column="1">
+      <widget class="QTextEdit" name="StrModBox"/>
+     </item>
+     <item row="2" column="4">
+      <widget class="QLineEdit" name="intScoreBox"/>
+     </item>
+     <item row="0" column="5">
+      <widget class="QLabel" name="label_10">
+       <property name="text">
+        <string>Wisdom </string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="3">
+      <widget class="QLineEdit" name="conScoreBox"/>
+     </item>
+     <item row="2" column="1">
+      <widget class="QLineEdit" name="strScoreBox"/>
+     </item>
+     <item row="1" column="4">
+      <widget class="QTextEdit" name="intModBox"/>
+     </item>
+     <item row="0" column="4">
+      <widget class="QLabel" name="label_11">
+       <property name="text">
+        <string>Intelligence</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="3">
+      <widget class="QLabel" name="label_8">
+       <property name="text">
+        <string>Constitution </string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="2">
+      <widget class="QLabel" name="label_12">
+       <property name="text">
+        <string>Dexterity</string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="5">
+      <widget class="QLineEdit" name="wisScoreBox"/>
+     </item>
+     <item row="1" column="2">
+      <widget class="QTextEdit" name="DexModBox"/>
+     </item>
+     <item row="1" column="3">
+      <widget class="QTextEdit" name="conModBox"/>
+     </item>
+     <item row="2" column="6">
+      <widget class="QLineEdit" name="chaScoreBox"/>
+     </item>
+     <item row="2" column="2">
+      <widget class="QLineEdit" name="dexScoreBox"/>
+     </item>
+     <item row="0" column="1">
+      <widget class="QLabel" name="label_15">
+       <property name="text">
+        <string>Strength</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item row="0" column="0">
+    <layout class="QGridLayout" name="gridLayout">
+     <item row="0" column="4">
+      <widget class="QLineEdit" name="raceBox"/>
+     </item>
+     <item row="1" column="0">
+      <widget class="QLabel" name="classNameBox">
+       <property name="text">
+        <string>Class &amp; Level</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="1">
+      <widget class="QLabel" name="backgroundNameLabel">
+       <property name="text">
+        <string>Background</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="5">
+      <widget class="QLabel" name="label_6">
+       <property name="text">
+        <string>Exp. Points</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="2">
+      <widget class="QLineEdit" name="playerNameBox"/>
+     </item>
+     <item row="1" column="2">
+      <widget class="QLabel" name="playerNameLabel">
+       <property name="text">
+        <string>Playername</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="3">
+      <widget class="QLabel" name="label_4">
+       <property name="text">
+        <string>Alignment</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="4">
+      <widget class="QLabel" name="label_5">
+       <property name="text">
+        <string>Race</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="1">
+      <widget class="QLineEdit" name="backgroundNameBox"/>
+     </item>
+     <item row="0" column="3">
+      <widget class="QLineEdit" name="alignmentBox"/>
+     </item>
+     <item row="0" column="5">
+      <widget class="QLineEdit" name="exPointBox"/>
+     </item>
+     <item row="0" column="0">
+      <widget class="QLineEdit" name="classBox"/>
+     </item>
+    </layout>
+   </item>
+   <item row="2" column="0">
+    <layout class="QGridLayout" name="savingThrowLayout">
+     <item row="2" column="0">
+      <widget class="QCheckBox" name="conThrowProfBox">
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="0">
+      <widget class="QCheckBox" name="dexThrowProfBox">
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="6">
+      <widget class="QLineEdit" name="chaThrowBox"/>
+     </item>
+     <item row="1" column="2">
+      <widget class="QLineEdit" name="dexThrowBox"/>
+     </item>
+     <item row="0" column="2">
+      <widget class="QLineEdit" name="strThrowBox"/>
+     </item>
+     <item row="0" column="4">
+      <widget class="QCheckBox" name="intThrowProfBox">
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="6">
+      <widget class="QLineEdit" name="intThrowBox"/>
+     </item>
+     <item row="2" column="2">
+      <widget class="QLineEdit" name="conThrowBox"/>
+     </item>
+     <item row="2" column="4">
+      <widget class="QCheckBox" name="chaThrowProfBox">
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="4">
+      <widget class="QCheckBox" name="wisThrowProfBox">
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="6">
+      <widget class="QLineEdit" name="wisThrowBox"/>
+     </item>
+     <item row="0" column="0">
+      <widget class="QCheckBox" name="strThrowProfBox">
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="3">
+      <spacer name="horizontalSpacer">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item row="0" column="1">
+      <widget class="QLabel" name="label_9">
+       <property name="text">
+        <string>Strength</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="1">
+      <widget class="QLabel" name="label_14">
+       <property name="text">
+        <string>Dexterity</string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="1">
+      <widget class="QLabel" name="label_16">
+       <property name="text">
+        <string>Constitution </string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="5">
+      <widget class="QLabel" name="label_18">
+       <property name="text">
+        <string>Intelligence</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="5">
+      <widget class="QLabel" name="label_19">
+       <property name="text">
+        <string>Wisdom </string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="5">
+      <widget class="QLabel" name="label_17">
+       <property name="text">
+        <string>Charisma</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item row="0" column="1">
+    <layout class="QVBoxLayout" name="verticalLayout">
+     <item>
+      <widget class="QLineEdit" name="charName"/>
+     </item>
+     <item>
+      <widget class="QLabel" name="charNameBox">
+       <property name="text">
+        <string>Character Name</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item row="1" column="1">
+    <layout class="QGridLayout" name="gridLayout_2">
+     <item row="0" column="1">
+      <widget class="QLabel" name="label_21">
+       <property name="text">
+        <string>Walking Speed</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="0">
+      <widget class="QTextEdit" name="profBonusBox"/>
+     </item>
+     <item row="1" column="1">
+      <widget class="QTextEdit" name="speedBox"/>
+     </item>
+     <item row="0" column="0">
+      <widget class="QLabel" name="label_20">
+       <property name="text">
+        <string>Proficiency Bonus</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item row="3" column="0">
+    <widget class="QTabWidget" name="tabWidget">
+     <property name="currentIndex">
+      <number>0</number>
+     </property>
+     <widget class="QWidget" name="profTab">
+      <attribute name="title">
+       <string>Proficiencies</string>
+      </attribute>
+      <layout class="QFormLayout" name="formLayout">
+       <item row="0" column="0">
+        <widget class="QLabel" name="label">
+         <property name="text">
+          <string>Weapon Proficiencies</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1">
+        <widget class="QPlainTextEdit" name="weaponProficienciesBox"/>
+       </item>
+       <item row="1" column="0">
+        <widget class="QLabel" name="label_2">
+         <property name="text">
+          <string>Armor Proficiencies</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1">
+        <widget class="QPlainTextEdit" name="armorProficienciesBox"/>
+       </item>
+       <item row="2" column="0">
+        <widget class="QLabel" name="label_3">
+         <property name="text">
+          <string>Tool Proficiencies</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="1">
+        <widget class="QPlainTextEdit" name="toolProficienciesBox"/>
+       </item>
+       <item row="3" column="0">
+        <widget class="QLabel" name="label_7">
+         <property name="text">
+          <string>Other Proficiencies</string>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="1">
+        <widget class="QPlainTextEdit" name="otherProficienciesBox"/>
+       </item>
+       <item row="4" column="0">
+        <widget class="QLabel" name="label_58">
+         <property name="text">
+          <string>Language Proficiencies</string>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="1">
+        <widget class="QPlainTextEdit" name="languageProficienciesBox"/>
+       </item>
+      </layout>
      </widget>
-    </item>
-    <item row="1" column="1">
-     <widget class="QLabel" name="backgroundNameLabel">
-      <property name="text">
-       <string>Background</string>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignCenter</set>
-      </property>
+     <widget class="QWidget" name="equipTab">
+      <attribute name="title">
+       <string>Equipment</string>
+      </attribute>
      </widget>
-    </item>
-    <item row="1" column="5">
-     <widget class="QLabel" name="label_6">
-      <property name="text">
-       <string>Exp. Points</string>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignCenter</set>
-      </property>
-     </widget>
-    </item>
-    <item row="0" column="2">
-     <widget class="QLineEdit" name="playerNameBox"/>
-    </item>
-    <item row="1" column="2">
-     <widget class="QLabel" name="playerNameLabel">
-      <property name="text">
-       <string>Playername</string>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignCenter</set>
-      </property>
-     </widget>
-    </item>
-    <item row="1" column="3">
-     <widget class="QLabel" name="label_4">
-      <property name="text">
-       <string>Alignment</string>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignCenter</set>
-      </property>
-     </widget>
-    </item>
-    <item row="0" column="1">
-     <widget class="QLineEdit" name="backgroundNameBox"/>
-    </item>
-    <item row="0" column="3">
-     <widget class="QLineEdit" name="alignmentBox"/>
-    </item>
-    <item row="0" column="5">
-     <widget class="QLineEdit" name="exPointBox"/>
-    </item>
-    <item row="1" column="4">
-     <widget class="QLabel" name="label_5">
-      <property name="text">
-       <string>Race</string>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignCenter</set>
-      </property>
-     </widget>
-    </item>
-    <item row="0" column="4">
-     <widget class="QLineEdit" name="raceBox"/>
-    </item>
-   </layout>
-  </widget>
-  <widget class="QWidget" name="">
-   <property name="geometry">
-    <rect>
-     <x>50</x>
-     <y>40</y>
-     <width>127</width>
-     <height>55</height>
-    </rect>
-   </property>
-   <layout class="QVBoxLayout" name="verticalLayout">
-    <item>
-     <widget class="QLineEdit" name="charName"/>
-    </item>
-    <item>
-     <widget class="QLabel" name="charNameBox">
-      <property name="text">
-       <string>Character Name</string>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignCenter</set>
-      </property>
-     </widget>
-    </item>
-   </layout>
-  </widget>
-  <widget class="QWidget" name="">
-   <property name="geometry">
-    <rect>
-     <x>30</x>
-     <y>110</y>
-     <width>811</width>
-     <height>91</height>
-    </rect>
-   </property>
-   <layout class="QGridLayout" name="abilityLayout">
-    <item row="0" column="6">
-     <widget class="QLabel" name="label_13">
-      <property name="text">
-       <string>Charisma</string>
-      </property>
-     </widget>
-    </item>
-    <item row="1" column="6">
-     <widget class="QTextEdit" name="chaModBox"/>
-    </item>
-    <item row="1" column="5">
-     <widget class="QTextEdit" name="wisModBox"/>
-    </item>
-    <item row="1" column="1">
-     <widget class="QTextEdit" name="StrModBox"/>
-    </item>
-    <item row="2" column="4">
-     <widget class="QLineEdit" name="intScoreBox"/>
-    </item>
-    <item row="0" column="5">
-     <widget class="QLabel" name="label_10">
-      <property name="text">
-       <string>Wisdom </string>
-      </property>
-     </widget>
-    </item>
-    <item row="2" column="3">
-     <widget class="QLineEdit" name="conScoreBox"/>
-    </item>
-    <item row="2" column="1">
-     <widget class="QLineEdit" name="strScoreBox"/>
-    </item>
-    <item row="1" column="4">
-     <widget class="QTextEdit" name="intModBox"/>
-    </item>
-    <item row="0" column="4">
-     <widget class="QLabel" name="label_11">
-      <property name="text">
-       <string>Intelligence</string>
-      </property>
-     </widget>
-    </item>
-    <item row="0" column="3">
-     <widget class="QLabel" name="label_8">
-      <property name="text">
-       <string>Constitution </string>
-      </property>
-     </widget>
-    </item>
-    <item row="0" column="2">
-     <widget class="QLabel" name="label_12">
-      <property name="text">
-       <string>Dexterity</string>
-      </property>
-     </widget>
-    </item>
-    <item row="2" column="5">
-     <widget class="QLineEdit" name="wisScoreBox"/>
-    </item>
-    <item row="1" column="2">
-     <widget class="QTextEdit" name="DexModBox"/>
-    </item>
-    <item row="1" column="3">
-     <widget class="QTextEdit" name="conModBox"/>
-    </item>
-    <item row="2" column="6">
-     <widget class="QLineEdit" name="chaScoreBox"/>
-    </item>
-    <item row="2" column="2">
-     <widget class="QLineEdit" name="dexScoreBox"/>
-    </item>
-    <item row="0" column="1">
-     <widget class="QLabel" name="label_15">
-      <property name="text">
-       <string>Strength</string>
-      </property>
-     </widget>
-    </item>
-   </layout>
-  </widget>
-  <widget class="QWidget" name="">
-   <property name="geometry">
-    <rect>
-     <x>20</x>
-     <y>210</y>
-     <width>401</width>
-     <height>96</height>
-    </rect>
-   </property>
-   <layout class="QGridLayout" name="savingThrowLayout">
-    <item row="2" column="0">
-     <widget class="QCheckBox" name="conThrowProfBox">
-      <property name="text">
-       <string/>
-      </property>
-     </widget>
-    </item>
-    <item row="1" column="0">
-     <widget class="QCheckBox" name="dexThrowProfBox">
-      <property name="text">
-       <string/>
-      </property>
-     </widget>
-    </item>
-    <item row="2" column="6">
-     <widget class="QLineEdit" name="chaThrowBox"/>
-    </item>
-    <item row="1" column="2">
-     <widget class="QLineEdit" name="dexThrowBox"/>
-    </item>
-    <item row="0" column="2">
-     <widget class="QLineEdit" name="strThrowBox"/>
-    </item>
-    <item row="0" column="4">
-     <widget class="QCheckBox" name="intThrowProfBox">
-      <property name="text">
-       <string/>
-      </property>
-     </widget>
-    </item>
-    <item row="0" column="6">
-     <widget class="QLineEdit" name="intThrowBox"/>
-    </item>
-    <item row="2" column="2">
-     <widget class="QLineEdit" name="conThrowBox"/>
-    </item>
-    <item row="2" column="4">
-     <widget class="QCheckBox" name="chaThrowProfBox">
-      <property name="text">
-       <string/>
-      </property>
-     </widget>
-    </item>
-    <item row="1" column="4">
-     <widget class="QCheckBox" name="wisThrowProfBox">
-      <property name="text">
-       <string/>
-      </property>
-     </widget>
-    </item>
-    <item row="1" column="6">
-     <widget class="QLineEdit" name="wisThrowBox"/>
-    </item>
-    <item row="0" column="0">
-     <widget class="QCheckBox" name="strThrowProfBox">
-      <property name="text">
-       <string/>
-      </property>
-     </widget>
-    </item>
-    <item row="2" column="3">
-     <spacer name="horizontalSpacer">
-      <property name="orientation">
-       <enum>Qt::Horizontal</enum>
-      </property>
-      <property name="sizeHint" stdset="0">
-       <size>
-        <width>40</width>
-        <height>20</height>
-       </size>
-      </property>
-     </spacer>
-    </item>
-    <item row="0" column="1">
-     <widget class="QLabel" name="label_9">
-      <property name="text">
-       <string>Strength</string>
-      </property>
-     </widget>
-    </item>
-    <item row="1" column="1">
-     <widget class="QLabel" name="label_14">
-      <property name="text">
-       <string>Dexterity</string>
-      </property>
-     </widget>
-    </item>
-    <item row="2" column="1">
-     <widget class="QLabel" name="label_16">
-      <property name="text">
-       <string>Constitution </string>
-      </property>
-     </widget>
-    </item>
-    <item row="0" column="5">
-     <widget class="QLabel" name="label_18">
-      <property name="text">
-       <string>Intelligence</string>
-      </property>
-     </widget>
-    </item>
-    <item row="1" column="5">
-     <widget class="QLabel" name="label_19">
-      <property name="text">
-       <string>Wisdom </string>
-      </property>
-     </widget>
-    </item>
-    <item row="2" column="5">
-     <widget class="QLabel" name="label_17">
-      <property name="text">
-       <string>Charisma</string>
-      </property>
-     </widget>
-    </item>
-   </layout>
-  </widget>
-  <widget class="QWidget" name="">
-   <property name="geometry">
-    <rect>
-     <x>850</x>
-     <y>120</y>
-     <width>201</width>
-     <height>51</height>
-    </rect>
-   </property>
-   <layout class="QGridLayout" name="gridLayout_2">
-    <item row="0" column="0">
-     <widget class="QLabel" name="label_20">
-      <property name="text">
-       <string>Proficiency Bonus</string>
-      </property>
-     </widget>
-    </item>
-    <item row="0" column="1">
-     <widget class="QLabel" name="label_21">
-      <property name="text">
-       <string>Walking Speed</string>
-      </property>
-     </widget>
-    </item>
-    <item row="1" column="0">
-     <widget class="QTextEdit" name="profBonusBox"/>
-    </item>
-    <item row="1" column="1">
-     <widget class="QTextEdit" name="speedBox"/>
-    </item>
-   </layout>
-  </widget>
-  <widget class="QWidget" name="">
-   <property name="geometry">
-    <rect>
-     <x>810</x>
-     <y>220</y>
-     <width>316</width>
-     <height>545</height>
-    </rect>
-   </property>
-   <layout class="QGridLayout" name="skills" columnstretch="0,0,0,0,0,0,0">
-    <item row="15" column="5">
-     <widget class="QLabel" name="label_53">
-      <property name="text">
-       <string>Sleight of Hand</string>
-      </property>
-     </widget>
-    </item>
-    <item row="3" column="6">
-     <widget class="QLineEdit" name="athBox"/>
-    </item>
-    <item row="12" column="0">
-     <widget class="QCheckBox" name="perfCheck">
-      <property name="text">
-       <string/>
-      </property>
-     </widget>
-    </item>
-    <item row="9" column="5">
-     <widget class="QLabel" name="label_47">
-      <property name="text">
-       <string>Medicine</string>
-      </property>
-     </widget>
-    </item>
-    <item row="14" column="0">
-     <widget class="QCheckBox" name="relCheck">
-      <property name="text">
-       <string/>
-      </property>
-     </widget>
-    </item>
-    <item row="0" column="1" colspan="4">
-     <widget class="QLabel" name="label_36">
-      <property name="text">
-       <string>DEX</string>
-      </property>
-     </widget>
-    </item>
-    <item row="16" column="6">
-     <widget class="QLineEdit" name="steBox"/>
-    </item>
-    <item row="16" column="1" colspan="4">
-     <widget class="QLabel" name="label_54">
-      <property name="text">
-       <string>DEX</string>
-      </property>
-     </widget>
-    </item>
-    <item row="16" column="5">
-     <widget class="QLabel" name="label_55">
-      <property name="text">
-       <string>Stealth</string>
-      </property>
-     </widget>
-    </item>
-    <item row="8" column="1" colspan="4">
-     <widget class="QLabel" name="label_22">
-      <property name="text">
-       <string>INT</string>
-      </property>
-     </widget>
-    </item>
-    <item row="6" column="1" colspan="4">
-     <widget class="QLabel" name="label_35">
-      <property name="text">
-       <string>WIS</string>
-      </property>
-     </widget>
-    </item>
-    <item row="7" column="1" colspan="4">
-     <widget class="QLabel" name="label_33">
-      <property name="text">
-       <string>CHA</string>
-      </property>
-     </widget>
-    </item>
-    <item row="9" column="0">
-     <widget class="QCheckBox" name="medCheck">
-      <property name="text">
-       <string/>
-      </property>
-     </widget>
-    </item>
-    <item row="16" column="0">
-     <widget class="QCheckBox" name="steCheck">
-      <property name="text">
-       <string/>
-      </property>
-     </widget>
-    </item>
-    <item row="1" column="5">
-     <widget class="QLabel" name="label_39">
-      <property name="text">
-       <string>
+    </widget>
+   </item>
+   <item row="2" column="1" rowspan="2">
+    <layout class="QGridLayout" name="skills" columnstretch="0,0,0,0,0,0,0">
+     <item row="15" column="5">
+      <widget class="QLabel" name="label_53">
+       <property name="text">
+        <string>Sleight of Hand</string>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="6">
+      <widget class="QLineEdit" name="athBox"/>
+     </item>
+     <item row="12" column="0">
+      <widget class="QCheckBox" name="perfCheck">
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+     </item>
+     <item row="9" column="5">
+      <widget class="QLabel" name="label_47">
+       <property name="text">
+        <string>Medicine</string>
+       </property>
+      </widget>
+     </item>
+     <item row="14" column="0">
+      <widget class="QCheckBox" name="relCheck">
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="1" colspan="4">
+      <widget class="QLabel" name="label_36">
+       <property name="text">
+        <string>DEX</string>
+       </property>
+      </widget>
+     </item>
+     <item row="16" column="6">
+      <widget class="QLineEdit" name="steBox"/>
+     </item>
+     <item row="16" column="1" colspan="4">
+      <widget class="QLabel" name="label_54">
+       <property name="text">
+        <string>DEX</string>
+       </property>
+      </widget>
+     </item>
+     <item row="16" column="5">
+      <widget class="QLabel" name="label_55">
+       <property name="text">
+        <string>Stealth</string>
+       </property>
+      </widget>
+     </item>
+     <item row="8" column="1" colspan="4">
+      <widget class="QLabel" name="label_22">
+       <property name="text">
+        <string>INT</string>
+       </property>
+      </widget>
+     </item>
+     <item row="6" column="1" colspan="4">
+      <widget class="QLabel" name="label_35">
+       <property name="text">
+        <string>WIS</string>
+       </property>
+      </widget>
+     </item>
+     <item row="7" column="1" colspan="4">
+      <widget class="QLabel" name="label_33">
+       <property name="text">
+        <string>CHA</string>
+       </property>
+      </widget>
+     </item>
+     <item row="9" column="0">
+      <widget class="QCheckBox" name="medCheck">
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+     </item>
+     <item row="16" column="0">
+      <widget class="QCheckBox" name="steCheck">
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="5">
+      <widget class="QLabel" name="label_39">
+       <property name="text">
+        <string>
 Animal Handling</string>
-      </property>
-     </widget>
-    </item>
-    <item row="11" column="1" colspan="4">
-     <widget class="QLabel" name="label_25">
-      <property name="text">
-       <string>WIS</string>
-      </property>
-     </widget>
-    </item>
-    <item row="4" column="6">
-     <widget class="QLineEdit" name="decBox"/>
-    </item>
-    <item row="10" column="1" colspan="4">
-     <widget class="QLabel" name="label_23">
-      <property name="text">
-       <string>INT</string>
-      </property>
-     </widget>
-    </item>
-    <item row="7" column="6">
-     <widget class="QLineEdit" name="intiBox"/>
-    </item>
-    <item row="10" column="6">
-     <widget class="QLineEdit" name="natBox"/>
-    </item>
-    <item row="0" column="0">
-     <widget class="QCheckBox" name="acrCheck">
-      <property name="text">
-       <string/>
-      </property>
-     </widget>
-    </item>
-    <item row="3" column="1" colspan="4">
-     <widget class="QLabel" name="label_31">
-      <property name="text">
-       <string>STR</string>
-      </property>
-     </widget>
-    </item>
-    <item row="3" column="0">
-     <widget class="QCheckBox" name="athCheck">
-      <property name="text">
-       <string/>
-      </property>
-     </widget>
-    </item>
-    <item row="6" column="5">
-     <widget class="QLabel" name="label_44">
-      <property name="text">
-       <string>Insight</string>
-      </property>
-     </widget>
-    </item>
-    <item row="10" column="5">
-     <widget class="QLabel" name="label_48">
-      <property name="text">
-       <string>Nature</string>
-      </property>
-     </widget>
-    </item>
-    <item row="4" column="0">
-     <widget class="QCheckBox" name="decCheck">
-      <property name="text">
-       <string/>
-      </property>
-     </widget>
-    </item>
-    <item row="14" column="6">
-     <widget class="QLineEdit" name="relBox"/>
-    </item>
-    <item row="12" column="5">
-     <widget class="QLabel" name="label_50">
-      <property name="text">
-       <string>Performance</string>
-      </property>
-     </widget>
-    </item>
-    <item row="1" column="1" colspan="4">
-     <widget class="QLabel" name="label_34">
-      <property name="text">
-       <string>WIS</string>
-      </property>
-     </widget>
-    </item>
-    <item row="2" column="6">
-     <widget class="QLineEdit" name="arcBox"/>
-    </item>
-    <item row="8" column="6">
-     <widget class="QLineEdit" name="invBox"/>
-    </item>
-    <item row="13" column="6">
-     <widget class="QLineEdit" name="persBox"/>
-    </item>
-    <item row="2" column="1" colspan="4">
-     <widget class="QLabel" name="label_37">
-      <property name="text">
-       <string>INT</string>
-      </property>
-     </widget>
-    </item>
-    <item row="9" column="6">
-     <widget class="QLineEdit" name="medBox"/>
-    </item>
-    <item row="14" column="1" colspan="4">
-     <widget class="QLabel" name="label_26">
-      <property name="text">
-       <string>INT</string>
-      </property>
-     </widget>
-    </item>
-    <item row="8" column="0">
-     <widget class="QCheckBox" name="invCheck">
-      <property name="text">
-       <string/>
-      </property>
-     </widget>
-    </item>
-    <item row="10" column="0">
-     <widget class="QCheckBox" name="natCheck">
-      <property name="text">
-       <string/>
-      </property>
-     </widget>
-    </item>
-    <item row="5" column="6">
-     <widget class="QLineEdit" name="hisBox"/>
-    </item>
-    <item row="8" column="5">
-     <widget class="QLabel" name="label_46">
-      <property name="text">
-       <string>Investigation</string>
-      </property>
-     </widget>
-    </item>
-    <item row="0" column="6">
-     <widget class="QLineEdit" name="acroBox"/>
-    </item>
-    <item row="12" column="1" colspan="4">
-     <widget class="QLabel" name="label_29">
-      <property name="text">
-       <string>CHA</string>
-      </property>
-     </widget>
-    </item>
-    <item row="11" column="6">
-     <widget class="QLineEdit" name="perBox"/>
-    </item>
-    <item row="15" column="1" colspan="4">
-     <widget class="QLabel" name="label_27">
-      <property name="text">
-       <string>DEX</string>
-      </property>
-     </widget>
-    </item>
-    <item row="9" column="1" colspan="4">
-     <widget class="QLabel" name="label_24">
-      <property name="text">
-       <string>WIS</string>
-      </property>
-     </widget>
-    </item>
-    <item row="0" column="5">
-     <widget class="QLabel" name="label_38">
-      <property name="text">
-       <string>
+       </property>
+      </widget>
+     </item>
+     <item row="11" column="1" colspan="4">
+      <widget class="QLabel" name="label_25">
+       <property name="text">
+        <string>WIS</string>
+       </property>
+      </widget>
+     </item>
+     <item row="4" column="6">
+      <widget class="QLineEdit" name="decBox"/>
+     </item>
+     <item row="10" column="1" colspan="4">
+      <widget class="QLabel" name="label_23">
+       <property name="text">
+        <string>INT</string>
+       </property>
+      </widget>
+     </item>
+     <item row="7" column="6">
+      <widget class="QLineEdit" name="intiBox"/>
+     </item>
+     <item row="10" column="6">
+      <widget class="QLineEdit" name="natBox"/>
+     </item>
+     <item row="0" column="0">
+      <widget class="QCheckBox" name="acrCheck">
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="1" colspan="4">
+      <widget class="QLabel" name="label_31">
+       <property name="text">
+        <string>STR</string>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="0">
+      <widget class="QCheckBox" name="athCheck">
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+     </item>
+     <item row="6" column="5">
+      <widget class="QLabel" name="label_44">
+       <property name="text">
+        <string>Insight</string>
+       </property>
+      </widget>
+     </item>
+     <item row="10" column="5">
+      <widget class="QLabel" name="label_48">
+       <property name="text">
+        <string>Nature</string>
+       </property>
+      </widget>
+     </item>
+     <item row="4" column="0">
+      <widget class="QCheckBox" name="decCheck">
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+     </item>
+     <item row="14" column="6">
+      <widget class="QLineEdit" name="relBox"/>
+     </item>
+     <item row="12" column="5">
+      <widget class="QLabel" name="label_50">
+       <property name="text">
+        <string>Performance</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="1" colspan="4">
+      <widget class="QLabel" name="label_34">
+       <property name="text">
+        <string>WIS</string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="6">
+      <widget class="QLineEdit" name="arcBox"/>
+     </item>
+     <item row="8" column="6">
+      <widget class="QLineEdit" name="invBox"/>
+     </item>
+     <item row="13" column="6">
+      <widget class="QLineEdit" name="persBox"/>
+     </item>
+     <item row="2" column="1" colspan="4">
+      <widget class="QLabel" name="label_37">
+       <property name="text">
+        <string>INT</string>
+       </property>
+      </widget>
+     </item>
+     <item row="9" column="6">
+      <widget class="QLineEdit" name="medBox"/>
+     </item>
+     <item row="14" column="1" colspan="4">
+      <widget class="QLabel" name="label_26">
+       <property name="text">
+        <string>INT</string>
+       </property>
+      </widget>
+     </item>
+     <item row="8" column="0">
+      <widget class="QCheckBox" name="invCheck">
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+     </item>
+     <item row="10" column="0">
+      <widget class="QCheckBox" name="natCheck">
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+     </item>
+     <item row="5" column="6">
+      <widget class="QLineEdit" name="hisBox"/>
+     </item>
+     <item row="8" column="5">
+      <widget class="QLabel" name="label_46">
+       <property name="text">
+        <string>Investigation</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="6">
+      <widget class="QLineEdit" name="acroBox"/>
+     </item>
+     <item row="12" column="1" colspan="4">
+      <widget class="QLabel" name="label_29">
+       <property name="text">
+        <string>CHA</string>
+       </property>
+      </widget>
+     </item>
+     <item row="11" column="6">
+      <widget class="QLineEdit" name="perBox"/>
+     </item>
+     <item row="15" column="1" colspan="4">
+      <widget class="QLabel" name="label_27">
+       <property name="text">
+        <string>DEX</string>
+       </property>
+      </widget>
+     </item>
+     <item row="9" column="1" colspan="4">
+      <widget class="QLabel" name="label_24">
+       <property name="text">
+        <string>WIS</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="5">
+      <widget class="QLabel" name="label_38">
+       <property name="text">
+        <string>
 Acrobatics</string>
-      </property>
-     </widget>
-    </item>
-    <item row="13" column="1" colspan="4">
-     <widget class="QLabel" name="label_28">
-      <property name="text">
-       <string>CHA</string>
-      </property>
-     </widget>
-    </item>
-    <item row="3" column="5">
-     <widget class="QLabel" name="label_41">
-      <property name="text">
-       <string>Athletics</string>
-      </property>
-     </widget>
-    </item>
-    <item row="5" column="1" colspan="4">
-     <widget class="QLabel" name="label_32">
-      <property name="text">
-       <string>INT</string>
-      </property>
-     </widget>
-    </item>
-    <item row="1" column="6">
-     <widget class="QLineEdit" name="aniBox"/>
-    </item>
-    <item row="15" column="6">
-     <widget class="QLineEdit" name="sleBox"/>
-    </item>
-    <item row="2" column="5">
-     <widget class="QLabel" name="label_40">
-      <property name="text">
-       <string>Arcana</string>
-      </property>
-     </widget>
-    </item>
-    <item row="6" column="6">
-     <widget class="QLineEdit" name="insBox"/>
-    </item>
-    <item row="14" column="5">
-     <widget class="QLabel" name="label_52">
-      <property name="text">
-       <string>Religion</string>
-      </property>
-     </widget>
-    </item>
-    <item row="1" column="0">
-     <widget class="QCheckBox" name="aniCheck">
-      <property name="text">
-       <string/>
-      </property>
-     </widget>
-    </item>
-    <item row="7" column="0">
-     <widget class="QCheckBox" name="intiCheck">
-      <property name="text">
-       <string/>
-      </property>
-     </widget>
-    </item>
-    <item row="13" column="5">
-     <widget class="QLabel" name="label_51">
-      <property name="text">
-       <string>Persuasion</string>
-      </property>
-     </widget>
-    </item>
-    <item row="6" column="0">
-     <widget class="QCheckBox" name="insCheck">
-      <property name="text">
-       <string/>
-      </property>
-     </widget>
-    </item>
-    <item row="11" column="0">
-     <widget class="QCheckBox" name="perCheck">
-      <property name="text">
-       <string/>
-      </property>
-     </widget>
-    </item>
-    <item row="4" column="5">
-     <widget class="QLabel" name="label_42">
-      <property name="text">
-       <string>Deception</string>
-      </property>
-     </widget>
-    </item>
-    <item row="2" column="0">
-     <widget class="QCheckBox" name="arcCheck">
-      <property name="text">
-       <string/>
-      </property>
-     </widget>
-    </item>
-    <item row="15" column="0">
-     <widget class="QCheckBox" name="sleCheck">
-      <property name="text">
-       <string/>
-      </property>
-     </widget>
-    </item>
-    <item row="13" column="0">
-     <widget class="QCheckBox" name="persCheck">
-      <property name="text">
-       <string/>
-      </property>
-     </widget>
-    </item>
-    <item row="11" column="5">
-     <widget class="QLabel" name="label_49">
-      <property name="text">
-       <string>Perception</string>
-      </property>
-     </widget>
-    </item>
-    <item row="5" column="5">
-     <widget class="QLabel" name="label_43">
-      <property name="text">
-       <string>History</string>
-      </property>
-     </widget>
-    </item>
-    <item row="5" column="0">
-     <widget class="QCheckBox" name="hisCheck">
-      <property name="text">
-       <string/>
-      </property>
-     </widget>
-    </item>
-    <item row="4" column="1" colspan="4">
-     <widget class="QLabel" name="label_30">
-      <property name="text">
-       <string>CHA</string>
-      </property>
-     </widget>
-    </item>
-    <item row="12" column="6">
-     <widget class="QLineEdit" name="perfBox"/>
-    </item>
-    <item row="7" column="5">
-     <widget class="QLabel" name="label_45">
-      <property name="text">
-       <string>Intimidation</string>
-      </property>
-     </widget>
-    </item>
-    <item row="17" column="5">
-     <widget class="QLabel" name="label_56">
-      <property name="text">
-       <string>Survival</string>
-      </property>
-     </widget>
-    </item>
-    <item row="17" column="6">
-     <widget class="QLineEdit" name="surBox"/>
-    </item>
-    <item row="17" column="0">
-     <widget class="QCheckBox" name="surCheck">
-      <property name="text">
-       <string/>
-      </property>
-     </widget>
-    </item>
-    <item row="17" column="1" colspan="4">
-     <widget class="QLabel" name="label_57">
-      <property name="text">
-       <string>WIS</string>
-      </property>
-     </widget>
-    </item>
-   </layout>
-  </widget>
+       </property>
+      </widget>
+     </item>
+     <item row="13" column="1" colspan="4">
+      <widget class="QLabel" name="label_28">
+       <property name="text">
+        <string>CHA</string>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="5">
+      <widget class="QLabel" name="label_41">
+       <property name="text">
+        <string>Athletics</string>
+       </property>
+      </widget>
+     </item>
+     <item row="5" column="1" colspan="4">
+      <widget class="QLabel" name="label_32">
+       <property name="text">
+        <string>INT</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="6">
+      <widget class="QLineEdit" name="aniBox"/>
+     </item>
+     <item row="15" column="6">
+      <widget class="QLineEdit" name="sleBox"/>
+     </item>
+     <item row="2" column="5">
+      <widget class="QLabel" name="label_40">
+       <property name="text">
+        <string>Arcana</string>
+       </property>
+      </widget>
+     </item>
+     <item row="6" column="6">
+      <widget class="QLineEdit" name="insBox"/>
+     </item>
+     <item row="14" column="5">
+      <widget class="QLabel" name="label_52">
+       <property name="text">
+        <string>Religion</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="0">
+      <widget class="QCheckBox" name="aniCheck">
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+     </item>
+     <item row="7" column="0">
+      <widget class="QCheckBox" name="intiCheck">
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+     </item>
+     <item row="13" column="5">
+      <widget class="QLabel" name="label_51">
+       <property name="text">
+        <string>Persuasion</string>
+       </property>
+      </widget>
+     </item>
+     <item row="6" column="0">
+      <widget class="QCheckBox" name="insCheck">
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+     </item>
+     <item row="11" column="0">
+      <widget class="QCheckBox" name="perCheck">
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+     </item>
+     <item row="4" column="5">
+      <widget class="QLabel" name="label_42">
+       <property name="text">
+        <string>Deception</string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="0">
+      <widget class="QCheckBox" name="arcCheck">
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+     </item>
+     <item row="15" column="0">
+      <widget class="QCheckBox" name="sleCheck">
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+     </item>
+     <item row="13" column="0">
+      <widget class="QCheckBox" name="persCheck">
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+     </item>
+     <item row="11" column="5">
+      <widget class="QLabel" name="label_49">
+       <property name="text">
+        <string>Perception</string>
+       </property>
+      </widget>
+     </item>
+     <item row="5" column="5">
+      <widget class="QLabel" name="label_43">
+       <property name="text">
+        <string>History</string>
+       </property>
+      </widget>
+     </item>
+     <item row="5" column="0">
+      <widget class="QCheckBox" name="hisCheck">
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+     </item>
+     <item row="4" column="1" colspan="4">
+      <widget class="QLabel" name="label_30">
+       <property name="text">
+        <string>CHA</string>
+       </property>
+      </widget>
+     </item>
+     <item row="12" column="6">
+      <widget class="QLineEdit" name="perfBox"/>
+     </item>
+     <item row="7" column="5">
+      <widget class="QLabel" name="label_45">
+       <property name="text">
+        <string>Intimidation</string>
+       </property>
+      </widget>
+     </item>
+     <item row="17" column="5">
+      <widget class="QLabel" name="label_56">
+       <property name="text">
+        <string>Survival</string>
+       </property>
+      </widget>
+     </item>
+     <item row="17" column="6">
+      <widget class="QLineEdit" name="surBox"/>
+     </item>
+     <item row="17" column="0">
+      <widget class="QCheckBox" name="surCheck">
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+     </item>
+     <item row="17" column="1" colspan="4">
+      <widget class="QLabel" name="label_57">
+       <property name="text">
+        <string>WIS</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+  </layout>
  </widget>
  <resources/>
  <connections/>

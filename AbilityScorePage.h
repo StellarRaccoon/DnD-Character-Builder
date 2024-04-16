@@ -5,6 +5,7 @@
 #include<QComboBox>
 #include<QVBoxLayout>
 #include<QLabel>
+#include"SmallClasses.h"
 namespace Ui {
 class AbilityScorePage;
 }
@@ -20,9 +21,9 @@ public:
     // public slots:
     //QMap<QString,int> &startingScores;
     void on_comboBox_activated(int optionSelected, int activeBoxIndex);
-    QMap<QString, int> updatedScores;
+    AbilityValues updatedScores;
 private:
-    QMap<QString, int> userScores;
+    AbilityValues userScores;
     QStringList comboOptions;
     //QStringList currentOptions;
     QHBoxLayout * hbox;
@@ -30,7 +31,7 @@ private:
     QList <QComboBox *> boxes;
     QMap <QComboBox *, QString> m_previousText;
     QList<QLabel *> totalScores;
-   // QSignalMapsper *comboMapper;
+
     Ui::AbilityScorePage *ui;
 
 };

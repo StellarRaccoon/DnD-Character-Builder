@@ -13,8 +13,6 @@ AbilityScorePage::AbilityScorePage(QWidget *parent)
     ui->setupUi(this);
 
     hbox = new QHBoxLayout();
-    //comboMapper = new QSignalMapper(this);
-    //connect(comboMapper, SIGNAL(mapped(int)),this, SLOT(on_comboBox_activated));
 
     int i=0;
     labels << "Dex"<<"Str"<<"int"<<"wis"<< "cha"<<"con";
@@ -24,6 +22,7 @@ AbilityScorePage::AbilityScorePage(QWidget *parent)
         QVBoxLayout *vbox = new QVBoxLayout();
         //create a combo box
         QComboBox *newBox =new QComboBox();
+        newBox->objectName()=label;
         //add the options into the box
         newBox->insertItems(0,comboOptions);
         //create a label
@@ -85,7 +84,6 @@ void AbilityScorePage::on_comboBox_activated(int optionSelected,int activeBoxInd
             }
             i++;
         }
-
     }
     //if the item 0 was selected, add back in the option
     //get
@@ -108,16 +106,15 @@ void AbilityScorePage::on_comboBox_activated(int optionSelected,int activeBoxInd
     m_previousText[boxes.at(activeBoxIndex)] = boxes.at(activeBoxIndex)->currentText();
 
     int i=0;
-    QMapIterator<QString, int> mapI(userScores);
-    while (mapI.hasNext()) {
 
-        mapI.next();
+
+    for(auto label:labels){
         int score = boxes.at(i)->itemText(i).toInt();
-        score=score+mapI.value();
+        score = userScores.getValueFromIndex(label)+score;
         QString scoreStr = QString("Total: %1").arg(score);
         totalScores.at(i)->setText(scoreStr);
-        updatedScores[mapI.key()] = score;
-        i++;
+        updatedScores.setFromIndex(label,score);
     }
+
 }
 
