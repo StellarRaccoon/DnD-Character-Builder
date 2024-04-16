@@ -30,9 +30,7 @@ private:
     int userHitDie;
     QMap<QString, int> userStartingEquipment;
     //QList<QString> userRaceTraits;
-
-
-
+//create a from json
 };
 
 #endif // USERCHARACTER_H
