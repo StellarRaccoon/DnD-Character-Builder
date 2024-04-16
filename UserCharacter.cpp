@@ -12,7 +12,9 @@ UserCharacter::UserCharacter() {
     userAbilityScore=new AbilityValues();
     userProfMod =2;
 }
-
+void UserCharacter::setAbilityScore(QString key, int value){
+    userAbilityScore->setFromIndex(key,value);
+}
 int UserCharacter::calculateAbilityMod(int score, int bonus){
     return ceil((score-10)/2)+bonus;
 }
@@ -194,6 +196,18 @@ AbilityValues UserCharacter::getAbilityScores(){
 QString UserCharacter::getUserRace(){
     return userRaceURL;
 
+}
+QString UserCharacter::getCharacterName(){
+    return characterName;
+}
+QString UserCharacter::getCharacterBackground(){
+    return characterBackground;
+}
+QString UserCharacter::getPlayerName(){
+    return playerName;
+}
+QString UserCharacter::getCharacterAlignment(){
+    return characterAlignment;
 }
 void UserCharacter::setCharacterName(QString characterName){
     this->characterName=characterName;

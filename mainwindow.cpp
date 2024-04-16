@@ -12,7 +12,8 @@
 #include "TreePage.h"
 #include"UserCharacter.h"
 #include<QMessageBox>
-#include"SheetPage.h"
+//#include"SheetPage.h"
+#include"extrasPage.h"
 /**
  * Main Window Consturctor
 */
@@ -39,10 +40,10 @@ MainWindow::MainWindow(QWidget *parent)
     this->classPage= ui->classPage;
     this->racePage= ui->racePage;
     this->scorePage= ui->scorePage;
-    this->docPage = ui->docPage;
-    this->extrasPage = ui->extrasPage;
+   // this->docPage = ui->docPage;
+    this->extraInfoPage = ui->extraInfoPage;
     currentIndex = ui->stackedWidget->currentIndex();
-    docPage->userChar = this->userCharacter;
+   // docPage->userChar = this->userCharacter;
     /*set Up Button Clicks*/
     connect(ui->nextPageButton, SIGNAL(QPushButton::clicked()), this,SLOT(on_nextPageButton_clicked()));
     connect(ui->backPageButton, SIGNAL(QPushButton::clicked()), this,SLOT(on_backPageButton_clicked()));
@@ -68,20 +69,21 @@ void MainWindow::on_nextPageButton_clicked()
         scorePage->updatedScores = userCharacter->getAbilityScores();
     }
     else if(currentIndex==2){
-        QMapIterator<QString, int> i(scorePage->updatedScores);
-        while (i.hasNext()) {
-            i.next();
 
-            userCharacter->increaseAbilityScore(i.key(), i.value());
-            //cout << qPrintable(i.key()) << ": " << i.value() << endl;
-        }
+        userCharacter->setAbilityScore("str",scorePage->updatedScores.getValueFromIndex("str"));
+        userCharacter->setAbilityScore("int",scorePage->updatedScores.getValueFromIndex("int"));
+        userCharacter->setAbilityScore("con",scorePage->updatedScores.getValueFromIndex("con"));
+        userCharacter->setAbilityScore("cha",scorePage->updatedScores.getValueFromIndex("cha"));
+        userCharacter->setAbilityScore("dex",scorePage->updatedScores.getValueFromIndex("dex"));
+        userCharacter->setAbilityScore("wis",scorePage->updatedScores.getValueFromIndex("wis"));
+
     }
     else if(currentIndex==3){
         //get data from extras page
-        userCharacter->setCharacterName(this->extrasPage->getCharacterName());
-        userCharacter->setCharacterBackground(this->extrasPage->getCharacterBackground());
-        userCharacter->setPlayerName(this->extrasPage->getPlayerName());
-        userCharacter->setCharacterAlignment(this->extrasPage->getCharacterAlignment());
+        userCharacter->setCharacterName(this->extraInfoPage->getCharacterName());
+        userCharacter->setCharacterBackground(extraInfoPage->getCharacterBackground());
+        userCharacter->setPlayerName(this->extraInfoPage->getPlayerName());
+        userCharacter->setCharacterAlignment(this->extraInfoPage->getCharacterAlignment());
     }
 
     ui->stackedWidget->setCurrentIndex(ui->stackedWidget->currentIndex()+1);

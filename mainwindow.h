@@ -8,12 +8,12 @@
 #include<QtGui>
 #include<QTreeWidget>
 #include<UserCharacter.h>
-//#include "secdialog.h"
 #include<QStackedWidget>
 #include"AbilityScorePage.h"
-#include"SheetPage.h"
+//#include"SheetPage.h"
 #include"extrasPage.h"
-QT_BEGIN_NAMESPACE
+
+
 //class QPushButton;
 namespace Ui {
 class MainWindow;
@@ -43,7 +43,7 @@ private:
     TreePage *classPage;
     TreePage *racePage;
     AbilityScorePage *scorePage;
-    extrasPage *extrasPage;
-    SheetPage *docPage;
+    extrasPage *extraInfoPage;
+    //SheetPage *docPage;
 };
 #endif // MAINWINDOW_H

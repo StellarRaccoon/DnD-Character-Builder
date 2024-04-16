@@ -22,7 +22,7 @@ public:
     QString getUserRace();
     QString toString();
     AbilityValues getAbilityScores();
-    void increaseAbilityScore(QString index, int value);
+    void setAbilityScore(QString index, int value);
     QString getUserClass();
     void setCharacterName(QString characterName);
     QString getCharacterName();

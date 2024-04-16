@@ -7,6 +7,7 @@
 #include<QGridLayout>
 #include<QtCore>
 #include<QtGui>
+#include"UserCharacter.h"
 SheetPage::SheetPage(QWidget *parent)
     : QWidget(parent)
     , ui(new Ui::SheetPage)
