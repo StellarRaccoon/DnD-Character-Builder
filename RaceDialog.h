@@ -13,7 +13,7 @@ class RaceDialog : public QDialog
     Q_OBJECT
 
 public:
-    explicit RaceDialog(QString="",QJsonArray traitArray={},QWidget *parent = nullptr);
+    explicit RaceDialog(QJsonArray traitArray={}, QWidget *parent = nullptr);
     ~RaceDialog();
 
 private:

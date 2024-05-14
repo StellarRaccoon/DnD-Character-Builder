@@ -1,20 +1,23 @@
-#include "RaceDialog.h"
-#include "ui_RaceDialog.h"
-#include<QVBoxLayout>
-#include<QGroupBox>
+#include "dialogTraits.h"
+#include "ui_dialogTraits.h"
+#include<QJsonDocument>
+#include<QJsonDocument>
+#include<QBoxLayout>
 #include<QPlainTextEdit>
-RaceDialog::RaceDialog(QJsonArray traitArray,QWidget *parent)
+#include<QGroupBox>
+dialogTraits::dialogTraits(QWidget *parent, QString raceName, QJsonArray racialTraitArray)
     : QDialog(parent)
-    , ui(new Ui::RaceDialog)
+    , ui(new Ui::dialogTraits)
 {
 
     QVBoxLayout *dialogLayout = new QVBoxLayout(this);
     qDebug()<<"In Dialog";
     ui->setupUi(this);
-
+    ui->dialogTitle->setText(raceName);
+    ui->dialogTitle->setReadOnly(true);
 
     //create a vertical layout box to add traits to the ui
-    for(auto racialTrait: traitArray){
+    for(auto racialTrait: racialTraitArray){
         QJsonObject traitNameData = racialTrait.toObject();
         QString traitName = traitNameData.value("name").toString();
         QString traitUrl = traitNameData.value("url").toString();
@@ -35,15 +38,15 @@ RaceDialog::RaceDialog(QJsonArray traitArray,QWidget *parent)
         traitDescriptText->setReadOnly(true);
         traitLayout->addWidget(traitDescriptText);
         dialogLayout->addWidget(traitBox);
-
+        /*⚠️⚠️TODO: put the description into a text box and add it to the screen with the trait box*/
+        //QTreeWidgetItem *raceRoot= new QTreeWidgetItem(ui->treeWidget);
     }
-
-    setLayout(dialogLayout);
+    //
+   // setLayout(dialogLayout);
 
 }
 
-
-RaceDialog::~RaceDialog()
+dialogTraits::~dialogTraits()
 {
     delete ui;
 }

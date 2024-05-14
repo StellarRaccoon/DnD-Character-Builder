@@ -18,6 +18,7 @@ AbilityScorePage::AbilityScorePage(QWidget *parent)
     labels << "Dex"<<"Str"<<"int"<<"wis"<< "cha"<<"con";
     comboOptions<<"0"<<"8"<<"10"<<"12"<<"13"<<"14"<<"15";
     userScores= updatedScores;
+    hbox->addItem(new QSpacerItem(0, 0, QSizePolicy::Fixed, QSizePolicy::Expanding));
     for(auto label:labels){
         QVBoxLayout *vbox = new QVBoxLayout();
         //create a combo box
@@ -29,10 +30,12 @@ AbilityScorePage::AbilityScorePage(QWidget *parent)
         QLabel *labelItem = new QLabel();
         QLabel *totalItem = new QLabel();
         totalItem->setText("Total Score: ");
+        totalItem->setAlignment(Qt::AlignHCenter);
+        totalItem->setAlignment(Qt::AlignTop);
         totalScores.append(totalItem);
-
         labelItem->setText(label);
-
+        labelItem->setAlignment(Qt::AlignHCenter);
+        labelItem->setAlignment(Qt::AlignBottom);
         m_previousText[newBox] = newBox->currentText();
         connect(newBox, &QComboBox::activated, [this,i](int index){on_comboBox_activated(index,i);});
         //add to the layout
@@ -43,6 +46,7 @@ AbilityScorePage::AbilityScorePage(QWidget *parent)
         i++;
         hbox->addItem(vbox);
     }
+    hbox->addItem(new QSpacerItem(0, 0, QSizePolicy::Fixed, QSizePolicy::Expanding));
     this->setLayout(hbox);
 
 
@@ -61,15 +65,12 @@ AbilityScorePage::~AbilityScorePage()
 void AbilityScorePage::on_comboBox_activated(int optionSelected,int activeBoxIndex)
 {
     QComboBox *selectedBox=boxes.at(activeBoxIndex);
-    //int prevTextIndex=selectedBox->indexOf(m_previousText[selectedBox]);
-    qDebug()<<"Index: "<<optionSelected;
-    qDebug()<<"Box Index: "<<activeBoxIndex;
-    qDebug()<<"prev Index: "<<m_previousText[boxes.at(activeBoxIndex)];
-    QString prev= m_previousText[boxes.at(activeBoxIndex)];
-    //get the selected option
-    QString option=boxes.at(activeBoxIndex)->itemText(optionSelected);
 
-    if(QString::compare(option,"0")!=0){
+    QString prev= m_previousText[selectedBox];
+    //get the selected option
+    QString option=selectedBox->itemText(optionSelected);
+    qDebug()<<"Option Selected: "<<option;
+    if(QString::compare(option,"0")!=0){ //if 0 is not selected (if zero was selected compare==0)
         int i=0;
             //remove that option from currentOptions
 
@@ -78,12 +79,13 @@ void AbilityScorePage::on_comboBox_activated(int optionSelected,int activeBoxInd
             //remove that item
             if(i!=activeBoxIndex){
                 int atIndex = box->findText(option);
-
-                qDebug()<<"removing item at: "<<atIndex<<" from box: "<<i;
-                box->removeItem(box->findText(option));
+                box->removeItem(atIndex);
             }
             i++;
         }
+        //set the updated score
+        updatedScores.setFromIndex(labels[activeBoxIndex],option.toInt());
+        qDebug()<<"setting score Selected: "<<updatedScores.getValueFromIndex(labels[activeBoxIndex]);
     }
     //if the item 0 was selected, add back in the option
     //get
@@ -93,27 +95,24 @@ void AbilityScorePage::on_comboBox_activated(int optionSelected,int activeBoxInd
         int i=0;
         for(auto box:boxes){
             if(i!=activeBoxIndex){
-                qDebug()<<"Adding in: "<<prev<< " at index: "<<indexInList<<" for box: "<<i;
-                //add to the back if the index in list >num of option
-                //int numOfOption=box->count();
-
                 box->insertItem(indexInList,prev);
 
             }
             i++;
         }
     }
-    m_previousText[boxes.at(activeBoxIndex)] = boxes.at(activeBoxIndex)->currentText();
+    m_previousText[selectedBox] = boxes.at(activeBoxIndex)->currentText();
 
     int i=0;
 
 
-    for(auto label:labels){
+    for(QString label:labels){
         int score = boxes.at(i)->itemText(i).toInt();
         score = userScores.getValueFromIndex(label)+score;
         QString scoreStr = QString("Total: %1").arg(score);
         totalScores.at(i)->setText(scoreStr);
-        updatedScores.setFromIndex(label,score);
+
+        qDebug()<<"updated Score "<<label<<": "<<updatedScores.getValueFromIndex(label);
     }
 
 }

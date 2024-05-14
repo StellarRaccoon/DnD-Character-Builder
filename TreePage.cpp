@@ -87,7 +87,8 @@ void TreePage::setCurrentItem(QString itemName){
     this->currentItem = itemName;
 }
 QString TreePage::getCurrentItem(){
-    return this->currentItem;
+    qDebug()<<"current item got"<<ui->treeWidget->currentItem()->text(1);
+    return ui->treeWidget->currentItem()->text(1);
 }
 void TreePage::on_treeWidget_itemClicked(QTreeWidgetItem *item, int column)
 {
@@ -104,7 +105,7 @@ void TreePage::on_treeWidget_itemClicked(QTreeWidgetItem *item, int column)
         QJsonArray traitsArray = jason.getArrayFromJson("results",jsonDoc);
        // qDebug()<<"racial-trait url:"<<item->text(1).append("/traits");
         //create a new racial trait dialog box
-        RaceDialog infoDialog(itemName, traitsArray);
+        RaceDialog infoDialog(traitsArray);
         //block the main page from being acceses
         infoDialog.setModal(true);
         //launch dialog box

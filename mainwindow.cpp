@@ -12,7 +12,7 @@
 #include "TreePage.h"
 #include"UserCharacter.h"
 #include<QMessageBox>
-//#include"SheetPage.h"
+#include"SheetPage.h"
 #include"extrasPage.h"
 /**
  * Main Window Consturctor
@@ -66,7 +66,9 @@ void MainWindow::on_nextPageButton_clicked()
     }
     else if(currentIndex==1){
         userCharacter->setUserClass(this->classPage->getCurrentItem());
+        //qDebug()<<"userClass: "<<this->classPage->getCurrentItem();
         scorePage->updatedScores = userCharacter->getAbilityScores();
+
     }
     else if(currentIndex==2){
 
@@ -82,8 +84,12 @@ void MainWindow::on_nextPageButton_clicked()
         //get data from extras page
         userCharacter->setCharacterName(this->extraInfoPage->getCharacterName());
         userCharacter->setCharacterBackground(extraInfoPage->getCharacterBackground());
+        userCharacter->setCharacterAlignment(extraInfoPage->getCharacterAlignment());
         userCharacter->setPlayerName(this->extraInfoPage->getPlayerName());
         userCharacter->setCharacterAlignment(this->extraInfoPage->getCharacterAlignment());
+        userCharacter->setUserAbilityMod();
+        userCharacter->setSkillMod();
+
     }
 
     ui->stackedWidget->setCurrentIndex(ui->stackedWidget->currentIndex()+1);
@@ -96,3 +102,12 @@ void MainWindow::on_backPageButton_clicked()
     ui->stackedWidget->setCurrentIndex(ui->stackedWidget->currentIndex()-1);
     currentIndex = ui->stackedWidget->currentIndex();
 }
+
+void MainWindow::on_pushButton_clicked()
+{
+    SheetPage *wdg = new SheetPage(this->userCharacter);
+
+    wdg->show();
+    hide();//this will disappear main window
+}
+

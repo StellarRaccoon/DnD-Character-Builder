@@ -17,8 +17,12 @@
    <bool>false</bool>
   </property>
   <property name="styleSheet">
-   <string notr="true">background-color: rgb(211, 251, 255);
-font: 12pt &quot;Arial&quot;;</string>
+   <string notr="true">color: rgb(255, 255, 255);
+
+font: 12pt &quot;Verdana&quot;;
+background-color: rgb(76, 76, 76);
+
+border-color: rgb(170, 0, 0);</string>
   </property>
  </widget>
  <resources/>

@@ -17,22 +17,39 @@ public:
      *  langs
      *
     */
+    int userProfMod;
+    int userSpeed;
     void setUserRace(QString raceUrl);
     void setUserClass(QString classUrl);
-    QString getUserRace();
     QString toString();
-    AbilityValues getAbilityScores();
     void setAbilityScore(QString index, int value);
-    QString getUserClass();
     void setCharacterName(QString characterName);
-    QString getCharacterName();
     void setCharacterBackground(QString characterBackground);
-    QString getCharacterBackground();
     void setPlayerName(QString playerName);
-    QString getPlayerName();
     void setCharacterAlignment(QString characterAlignment);
+    void setUserAbilityMod();
+
+
+    AbilityValues getAbilityScores();
+    int getAbilityScoreByIndex();
+    QString getUserRace();
+    QString getUserClass();
+    QString getCharacterName();
+    QString getCharacterBackground();
+    QString getPlayerName();
     QString getCharacterAlignment();
-    QList<QString> getCharacterProfs(char profsToGet);
+    QString getCharacterLanguages();
+    QList<UserTrait> getUserTraits();
+    void setSkillMod();
+    QStringList getCharacterProfs(char profsToGet);
+    QList<Skill> skills;
+
+    QList<Equipment> userStartingEquipment;
+    AbilityValues getIsSavingThrows();
+    AbilityValues getSavingThrowValues();
+    AbilityValues getAbilityMod();
+
+
 private:
     QString characterName;
     QString characterBackground;
@@ -42,28 +59,29 @@ private:
     QString userClassUrl;
     QString userRaceURL; //one for the url one for the name
     int userHitDie;
-    int userProfMod;
     AbilityValues *isSavingThrow;
-
+    QString userRaceName;
     QList<QString> userLanguages;
     QList<QString> armorProfs;
     QList<QString> weaponProfs;
     QList<QString> toolProfs;
     QList<QString> otherProfs;
     QList<UserTrait> userRaceTraits;
-    //QList<QString> userSavingThrows;
 
+    void setIsProficientSkill(QString skillName);
+    //QList<QString> userSavingThrows;
+    AbilityValues userAbilityBonus;
     AbilityValues *userAbilityScore; //need to fix in the main window and on ability score page
-    QMap<QString, int> userAbilityMod;
+    AbilityValues userAbilityMod;
+    AbilityValues userSavingThrows;
     QMap<QString, int> userSkills;
-    QMap<QString, int> userStartingEquipment;
 
 
 
     JsonManipulation jason;
 
     void addProficiency(QJsonObject profBasic);
-    int calculateAbilityMod(int score, int bonus);
+    int calculateAbilityModFromIndex(QString abilityName);
 
     //QList<QString> userRaceTraits;
 //create a from json

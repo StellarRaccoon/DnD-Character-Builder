@@ -14,7 +14,10 @@
    <string>MainWindow</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">background-color: rgb(170, 170, 255);</string>
+   <string notr="true">color: rgb(255, 255, 255);
+border-color: rgb(170, 0, 0);
+font: 12pt &quot;Verdana&quot;;
+background-color: rgb(76, 76, 76);</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QVBoxLayout" name="verticalLayout">
@@ -24,20 +27,64 @@
        <string notr="true">font: 15pt &quot;Informal Roman&quot;;</string>
       </property>
       <property name="text">
-       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:18pt;&quot;&gt;Dungeons &amp;amp; Dragons Character Builder&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:28pt;&quot;&gt;Dungeons &amp;amp; Dragons Character Builder&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
       </property>
      </widget>
     </item>
     <item>
      <widget class="QStackedWidget" name="stackedWidget">
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(155, 155, 155);
+alternate-background-color: rgb(192, 11, 14);</string>
+      </property>
       <property name="currentIndex">
-       <number>4</number>
+       <number>0</number>
       </property>
       <widget class="TreePage" name="racePage"/>
       <widget class="TreePage" name="classPage"/>
       <widget class="AbilityScorePage" name="scorePage"/>
       <widget class="extrasPage" name="extraInfoPage"/>
-      <widget class="QWidget" name="docPage"/>
+      <widget class="QWidget" name="page">
+       <property name="styleSheet">
+        <string notr="true">background-color: rgb(129, 129, 129);
+alternate-background-color: rgb(170, 0, 0);
+border-color: rgb(170, 0, 0);</string>
+       </property>
+       <layout class="QGridLayout" name="gridLayout">
+        <item row="0" column="0">
+         <widget class="QPushButton" name="pushButton">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+            <horstretch>1</horstretch>
+            <verstretch>11</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="sizeIncrement">
+           <size>
+            <width>6</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="baseSize">
+           <size>
+            <width>0</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">background-color: rgb(8, 4, 8);
+border-color: rgb(170, 0, 0);</string>
+          </property>
+          <property name="text">
+           <string>Complete Character</string>
+          </property>
+          <property name="flat">
+           <bool>false</bool>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
      </widget>
     </item>
     <item>
@@ -45,7 +92,7 @@
       <item>
        <widget class="QPushButton" name="backPageButton">
         <property name="styleSheet">
-         <string notr="true">background-color: rgb(85, 170, 255);
+         <string notr="true">background-color: rgb(76, 47, 192);
 font: 800 9pt &quot;Artifakt Element Black&quot;;</string>
         </property>
         <property name="text">
@@ -69,7 +116,7 @@ font: 800 9pt &quot;Artifakt Element Black&quot;;</string>
       <item>
        <widget class="QPushButton" name="nextPageButton">
         <property name="styleSheet">
-         <string notr="true">background-color: rgb(170, 255, 0);
+         <string notr="true">background-color: rgb(42, 136, 7);
 font: 800 9pt &quot;Artifakt Element Black&quot;;</string>
         </property>
         <property name="text">
@@ -80,16 +127,6 @@ font: 800 9pt &quot;Artifakt Element Black&quot;;</string>
      </layout>
     </item>
    </layout>
-  </widget>
-  <widget class="QMenuBar" name="menubar">
-   <property name="geometry">
-    <rect>
-     <x>0</x>
-     <y>0</y>
-     <width>1256</width>
-     <height>20</height>
-    </rect>
-   </property>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>

@@ -16,16 +16,16 @@ class SheetPage : public QWidget
     Q_OBJECT
 
 public:
-    explicit SheetPage(QWidget *parent = nullptr);
+    explicit SheetPage(UserCharacter *inuserChar,QWidget *parent = nullptr);
     ~SheetPage();
-     UserCharacter *userChar;
+    UserCharacter *userChar;
 
 private:
 
     Ui::SheetPage *ui;
     //QTextDocument *document;
-    QGridLayout *gridBox;
-    QList<QLabel> *basicInfo;
+    //QGridLayout *gridBox;
+   // QList<QLabel> *basicInfo;
 
 };
 

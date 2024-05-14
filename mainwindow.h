@@ -38,6 +38,8 @@ private slots:
     void on_nextPageButton_clicked();
     void on_backPageButton_clicked();
 
+    void on_pushButton_clicked();
+
 private:
     Ui::MainWindow *ui;
     TreePage *classPage;
