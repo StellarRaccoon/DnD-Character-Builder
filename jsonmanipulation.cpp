@@ -9,6 +9,12 @@ JsonManipulation::JsonManipulation() {
 
 }
 
+/**
+ *
+ * @brief connect to the DnD API with a asynch API call
+ * @param urlPath path to the API request, typically starting with "/api/"
+ * @return if sucessful, a QJsonDocument with the data from the API. If not sucessful the document will be empty
+ */
 QJsonDocument JsonManipulation::fetchData(QString urlPath){
     QString urlBase ="https://www.dnd5eapi.co%1";
     qDebug()<<urlBase.arg(urlPath);
@@ -16,13 +22,15 @@ QJsonDocument JsonManipulation::fetchData(QString urlPath){
 
     QNetworkReply *reply =manager.get(request);
 
+    //this is a synchronus network request method which can make the app unresponsive because loop.exec() block the main thread.
+    //📌Add a loading page or symbol to prevent page freezing as data loads in
+    //📌should try to make it asynch
     QEventLoop loop;
     QObject::connect(reply,&QNetworkReply::finished,&loop,&QEventLoop::quit);
     loop.exec();
-    QString Response;
+    //QString Response;
 
     QJsonDocument jsonDoc;
-    bool success= false;
     if(reply->error()==QNetworkReply::NoError){
         //qDebug()<<"Error: "<<reply->errorString();
         QByteArray Response = reply->readAll();
@@ -34,7 +42,7 @@ QJsonDocument JsonManipulation::fetchData(QString urlPath){
         {
             qDebug() << "fromJson failed: " << jsonError.errorString().toStdString();
         }else{
-            success = true;
+            qDebug() << "Successful API call";
         }
 
     }else{

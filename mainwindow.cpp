@@ -23,6 +23,9 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
     userCharacter = new UserCharacter();
+    /**
+     * Change the stacked widget to a TabWidget
+     */
     stackedWidget = ui->stackedWidget;
     /*insert a page into the stacked widget*/
     // QHBoxLayout *layout = new QHBoxLayout;

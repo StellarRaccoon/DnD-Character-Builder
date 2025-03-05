@@ -15,44 +15,43 @@ AbilityScorePage::AbilityScorePage(QWidget *parent)
     hbox = new QHBoxLayout();
 
     int i=0;
-    labels << "Dex"<<"Str"<<"int"<<"wis"<< "cha"<<"con";
+    //labels << "Dex"<<"Str"<<"int"<<"wis"<< "cha"<<"con";
     comboOptions<<"0"<<"8"<<"10"<<"12"<<"13"<<"14"<<"15";
     userScores= updatedScores;
-    hbox->addItem(new QSpacerItem(0, 0, QSizePolicy::Fixed, QSizePolicy::Expanding));
-    for(auto label:labels){
-        QVBoxLayout *vbox = new QVBoxLayout();
-        //create a combo box
-        QComboBox *newBox =new QComboBox();
-        newBox->objectName()=label;
-        //add the options into the box
-        newBox->insertItems(0,comboOptions);
-        //create a label
-        QLabel *labelItem = new QLabel();
-        QLabel *totalItem = new QLabel();
-        totalItem->setText("Total Score: ");
-        totalItem->setAlignment(Qt::AlignHCenter);
-        totalItem->setAlignment(Qt::AlignTop);
-        totalScores.append(totalItem);
-        labelItem->setText(label);
-        labelItem->setAlignment(Qt::AlignHCenter);
-        labelItem->setAlignment(Qt::AlignBottom);
-        m_previousText[newBox] = newBox->currentText();
-        connect(newBox, &QComboBox::activated, [this,i](int index){on_comboBox_activated(index,i);});
-        //add to the layout
-        boxes.append(newBox);
-        vbox->addWidget(labelItem);
-        vbox->addWidget(newBox);
-        vbox->addWidget(totalItem);
-        i++;
-        hbox->addItem(vbox);
+    //add the combo boxes to the screen
+
+    QComboBox *chaScoreBox = new QComboBox();
+    QComboBox *conScoreBox = new QComboBox();
+    QComboBox *dexScoreBox = new QComboBox();
+    QComboBox *intScoreBox = new QComboBox();
+    QComboBox *strScoreBox = new QComboBox();
+    QComboBox *wisScoreBox = new QComboBox();
+    ui->scoreBoxLayout->addWidget(chaScoreBox);
+    ui->scoreBoxLayout->addWidget(conScoreBox);
+    ui->scoreBoxLayout->addWidget(dexScoreBox);
+    ui->scoreBoxLayout->addWidget(intScoreBox);
+    ui->scoreBoxLayout->addWidget(strScoreBox);
+    ui->scoreBoxLayout->addWidget(wisScoreBox);
+    boxes<<chaScoreBox<<conScoreBox<<dexScoreBox<<intScoreBox<<strScoreBox<<wisScoreBox;
+
+    for(auto scoreBox:boxes){
+        scoreBox->addItems(comboOptions);
+
+        //connect(newBox, &QComboBox::activated, [this,i](int index){on_comboBox_activated(index,i);});
+
     }
-    hbox->addItem(new QSpacerItem(0, 0, QSizePolicy::Fixed, QSizePolicy::Expanding));
-    this->setLayout(hbox);
+
 
 
 }
 
-
+/**
+ * ⚠️⚠️TODO
+ * Get the comboboxes working
+ * disable currently used options
+ * should update the list of each box when a selection is made (textActivate signal, currentIndexChanged, or currentTextChanged)
+ *
+ */
 
 AbilityScorePage::~AbilityScorePage()
 {
