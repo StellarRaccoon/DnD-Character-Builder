@@ -21,25 +21,15 @@ public:
     void extracted(int &i);
     explicit AbilityScorePage(QWidget *parent = nullptr);
     ~AbilityScorePage();
-    // public slots:
-    //QMap<QString,int> &startingScores;
     AbilityValues updatedScores;
 private:
     QStandardItemModel *scoreModel;
     AbilityValues userScores;
     QStringList comboOptions;
-    //QStringList currentOptions;
-    QHBoxLayout * hbox;
-    QStringList labels;
     QList <ScoreComboBox *> boxes;
-    QMap <QComboBox *, QString> m_previousText;
-    QList<QLabel *> totalScores;
-
     Ui::AbilityScorePage *ui;
 public slots:
     void on_comboBox_text_changed(int boxIndex, int scoreIndex);
- //   void on_score_selected(QString score);
-
 };
 
 

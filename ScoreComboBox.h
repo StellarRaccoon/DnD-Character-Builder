@@ -1,6 +1,10 @@
+/**
+ * A subclass of QComboBox for ability scores
+ * save the previous and current selection
+*/
+
 #ifndef SCORECOMBOBOX_H
 #define SCORECOMBOBOX_H
-
 
 #include <QWidget>
 #include<QPlainTextEdit>

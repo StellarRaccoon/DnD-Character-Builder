@@ -25,6 +25,7 @@ HEADERS += \
     ClassesDialog.h \
     RaceDialog.h \
     SheetPage.h \
+    ScoreComboBox.h \
     SmallClasses.h \
     TreePage.h \
     UserCharacter.h \
