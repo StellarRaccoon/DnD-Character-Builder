@@ -5,7 +5,7 @@
 #include <QWidget>
 #include<QPlainTextEdit>
 #include <QComboBox>
-
+#include <QStandardItem>
 namespace Ui {
 class ScoreComboBox;
 }
@@ -19,18 +19,16 @@ private:
     QString currentScore;
 
 public:
-        ScoreComboBox(int i, QString currentScore) {     // Constructor
+        ScoreComboBox(int i, QString cScore) {     // Constructor
         this->index = i;
-        this->currentScore = currentScore;
-        this->prevScore = currentScore;
+        this->prevScore=cScore;
+        this->currentScore=cScore;
     }
-
     QString getPrevScore(){return this->prevScore;}
     QString getCurrentScore(){return this->currentScore;}
     int getIndex(){return this->index;}
 
     void setPrevScore(QString prevScore){this->prevScore=prevScore;}
     void setCurrentScore(QString currentScore){this->currentScore=currentScore;}
-    void setIndex(int index){this->index=index;}
 };
 #endif // SCORECOMBOBOX_H
