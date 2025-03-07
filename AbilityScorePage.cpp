@@ -56,9 +56,10 @@ AbilityScorePage::AbilityScorePage(QWidget *parent)
         scoreBox->addItems(comboOptions);
         //connect(scoreBox, SIGNAL(activated(int)), this,SLOT(on_comboBox_activated(int)));
         //connect(scoreBox, SIGNAL(currentTextChanged(QString)), this,SLOT(on_score_selected(QString)));
+        connect(scoreBox, &ScoreComboBox::currentTextChanged, this,[this, scoreBox](){this->on_comboBox_text_changed(scoreBox->getIndex(), scoreBox->currentIndex());});
     }
 
-    connect(chaScoreBox, &ScoreComboBox::activated, this,[this, chaScoreBox](){this->on_comboBox_activated(chaScoreBox->getIndex(), chaScoreBox->currentIndex());});
+    //connect(chaScoreBox, &ScoreComboBox::activated, this,[this, chaScoreBox](){this->on_comboBox_activated(chaScoreBox->getIndex(), chaScoreBox->currentIndex());});
 
 }
 
@@ -78,7 +79,7 @@ AbilityScorePage::~AbilityScorePage()
 //maybe we can only do indexes >0 so there can be a default
 //remove the optionSelected from the list
 //clear all combo boxes
-void AbilityScorePage::on_comboBox_activated(int boxIndex, int scoreIndex)
+void AbilityScorePage::on_comboBox_text_changed(int boxIndex, int scoreIndex)
 {
     QString score = boxes[boxIndex]->itemText(scoreIndex); //the score selected
     boxes[boxIndex]->setPrevScore(boxes[boxIndex]->getCurrentScore());

@@ -37,7 +37,7 @@ private:
 
     Ui::AbilityScorePage *ui;
 public slots:
-    void on_comboBox_activated(int boxIndex, int scoreIndex);
+    void on_comboBox_text_changed(int boxIndex, int scoreIndex);
  //   void on_score_selected(QString score);
 
 };
