@@ -21,12 +21,12 @@ RaceDialog::RaceDialog(QJsonArray traitArray,QWidget *parent)
 
         //go to the url and get the description
 
-        qDebug()<<"traitURL: "<<traitUrl;
+        //qDebug()<<"traitURL: "<<traitUrl;
         QJsonDocument traitData=jackson.fetchData(traitUrl);
 
         //Get the description by turning the doc into and object, selecting the desciption key, and getting the first description in the array
         QString traitDescription=traitData.object().value("desc").toArray()[0].toString();
-        qDebug()<<"trait Descript: "<<traitDescription;
+        //qDebug()<<"trait Descript: "<<traitDescription;
 
         //create a new group box with label=trait name
         QGroupBox *traitBox = new QGroupBox(traitName, this);

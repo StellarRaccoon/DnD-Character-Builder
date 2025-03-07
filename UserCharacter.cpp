@@ -50,7 +50,7 @@ void UserCharacter::addProficiency(QJsonObject profBasic)
     //get the type
     QString profType = profObj.value("type").toString();
     QString profName= profObj.value("name").toString();
-    qDebug()<<"adding "<<profName<<" of type: "<<profType;
+    //qDebug()<<"adding "<<profName<<" of type: "<<profType;
     if(QString::compare("Armor", profType)==0){
         armorProfs.append(profName);
     }else if(QString::compare("Weapons", profType)==0){
@@ -153,7 +153,7 @@ void UserCharacter::setUserRace(QString raceUrl){
             QJsonObject langObj = langs.toObject();
             userLanguages.append(langObj.value("index").toString());
             if(!userLanguages.isEmpty()){
-                qDebug()<<userLanguages.last()<<": ";
+                //qDebug()<<userLanguages.last()<<": ";
             }
         }
     }
@@ -189,7 +189,7 @@ void UserCharacter::setUserRace(QString raceUrl){
             }
 
             //add the object of the trait to the character array
-            qDebug()<<"adding: "<<uT->getTraitName()<<" --- "<<uT->getTraitDesc();
+            //qDebug()<<"adding: "<<uT->getTraitName()<<" --- "<<uT->getTraitDesc();
 
             tempTraits.append(*uT);
         }

@@ -87,7 +87,7 @@ void TreePage::setCurrentItem(QString itemName){
     this->currentItem = itemName;
 }
 QString TreePage::getCurrentItem(){
-    qDebug()<<"current item got"<<ui->treeWidget->currentItem()->text(1);
+    //qDebug()<<"current item got"<<ui->treeWidget->currentItem()->text(1);
     return ui->treeWidget->currentItem()->text(1);
 }
 void TreePage::on_treeWidget_itemClicked(QTreeWidgetItem *item, int column)
@@ -95,7 +95,7 @@ void TreePage::on_treeWidget_itemClicked(QTreeWidgetItem *item, int column)
     //get the race name from the tree item
     QString itemName = item->text(0);
     QString title=this->objectName();
-    qDebug()<<"Clicked page title: "<<this->objectName();
+    //qDebug()<<"Clicked page title: "<<this->objectName();
     /**TODO: Simplify this*/
     QJsonDocument jsonDoc;
     if(!QString::compare(title, "racePage")){
