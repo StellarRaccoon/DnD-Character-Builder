@@ -5,7 +5,7 @@
 #include<QLabel>
 #include<QString>
 #include<QSignalMapper>
-
+#include <QStandardItemModel>
 AbilityScorePage::AbilityScorePage(QWidget *parent)
     : QWidget(parent)
     , ui(new Ui::AbilityScorePage)
@@ -14,11 +14,20 @@ AbilityScorePage::AbilityScorePage(QWidget *parent)
 
     hbox = new QHBoxLayout();
 
-    int i=0;
+
     //labels << "Dex"<<"Str"<<"int"<<"wis"<< "cha"<<"con";
     comboOptions<<"0"<<"8"<<"10"<<"12"<<"13"<<"14"<<"15";
     userScores= updatedScores;
     //add the combo boxes to the screen
+
+    scoreModel = new QStandardItemModel;
+    scoreModel->appendRow(new QStandardItem("0"));
+    scoreModel->appendRow(new QStandardItem("8"));
+    scoreModel->appendRow(new QStandardItem("10"));
+    scoreModel->appendRow(new QStandardItem("12"));
+    scoreModel->appendRow(new QStandardItem("13"));
+    scoreModel->appendRow(new QStandardItem("14"));
+    scoreModel->appendRow(new QStandardItem("15"));
 
     QComboBox *chaScoreBox = new QComboBox();
     QComboBox *conScoreBox = new QComboBox();
@@ -26,6 +35,14 @@ AbilityScorePage::AbilityScorePage(QWidget *parent)
     QComboBox *intScoreBox = new QComboBox();
     QComboBox *strScoreBox = new QComboBox();
     QComboBox *wisScoreBox = new QComboBox();
+
+    chaScoreBox->setModel(scoreModel);
+    conScoreBox->setModel(scoreModel);
+    dexScoreBox->setModel(scoreModel);
+    intScoreBox->setModel(scoreModel);
+    strScoreBox->setModel(scoreModel);
+    wisScoreBox->setModel(scoreModel);
+
     ui->scoreBoxLayout->addWidget(chaScoreBox);
     ui->scoreBoxLayout->addWidget(conScoreBox);
     ui->scoreBoxLayout->addWidget(dexScoreBox);
@@ -34,14 +51,15 @@ AbilityScorePage::AbilityScorePage(QWidget *parent)
     ui->scoreBoxLayout->addWidget(wisScoreBox);
     boxes<<chaScoreBox<<conScoreBox<<dexScoreBox<<intScoreBox<<strScoreBox<<wisScoreBox;
 
-    for(auto scoreBox:boxes){
-        scoreBox->addItems(comboOptions);
+    // for(auto scoreBox:boxes){
 
-        //connect(newBox, &QComboBox::activated, [this,i](int index){on_comboBox_activated(index,i);});
+    //     scoreBox->addItems(comboOptions);
+    //     connect(scoreBox, SIGNAL(activated(int)), this,SLOT(on_comboBox_activated(int)));
+    //     connect(scoreBox, SIGNAL(currentTextChanged(QString)), this,SLOT(on_score_selected(QString)));
+    // }
 
-    }
-
-
+    connect(chaScoreBox, SIGNAL(activated(int)), this,SLOT(on_comboBox_activated(int)));
+    connect(chaScoreBox, SIGNAL(currentTextChanged(QString)), this,SLOT(on_score_selected(QString)));
 
 }
 
@@ -57,12 +75,19 @@ AbilityScorePage::~AbilityScorePage()
 {
     delete ui;
 }
+void AbilityScorePage::on_score_selected(QString score){
+    //get the index of that score
+    //remove the index
+    qDebug()<<"Current text changed to: "<<score;
 
+}
 //maybe we can only do indexes >0 so there can be a default
 //remove the optionSelected from the list
 //clear all combo boxes
-void AbilityScorePage::on_comboBox_activated(int optionSelected,int activeBoxIndex)
+void AbilityScorePage::on_comboBox_activated(int index)
 {
+    qDebug()<<"Combo box ACTIVATED at index: "<<index;
+    /*
     QComboBox *selectedBox=boxes.at(activeBoxIndex);
 
     QString prev= m_previousText[selectedBox];
@@ -76,7 +101,7 @@ void AbilityScorePage::on_comboBox_activated(int optionSelected,int activeBoxInd
         for(auto box:boxes){
             //find the current selection of each box
             //remove that item
-            if(i!=activeBoxIndex){
+            if(i!=activeBoxconnect(scoreBox, SIGNAL(currentIndexChanged(int)), this,SLOT(on_score_selected(int)));Index){
                 int atIndex = box->findText(option);
                 box->removeItem(atIndex);
             }
@@ -113,6 +138,6 @@ void AbilityScorePage::on_comboBox_activated(int optionSelected,int activeBoxInd
 
         qDebug()<<"updated Score "<<label<<": "<<updatedScores.getValueFromIndex(label);
     }
-
+*/
 }
 
