@@ -29,12 +29,12 @@ AbilityScorePage::AbilityScorePage(QWidget *parent)
     scoreModel->appendRow(new QStandardItem("14"));
     scoreModel->appendRow(new QStandardItem("15"));
 
-    QComboBox *chaScoreBox = new QComboBox();
-    QComboBox *conScoreBox = new QComboBox();
-    QComboBox *dexScoreBox = new QComboBox();
-    QComboBox *intScoreBox = new QComboBox();
-    QComboBox *strScoreBox = new QComboBox();
-    QComboBox *wisScoreBox = new QComboBox();
+    ScoreComboBox *chaScoreBox = new ScoreComboBox(0, NULL);
+    ScoreComboBox *conScoreBox = new ScoreComboBox(1, NULL);
+    ScoreComboBox *dexScoreBox = new ScoreComboBox(2, NULL);
+    ScoreComboBox *intScoreBox = new ScoreComboBox(3, NULL);
+    ScoreComboBox *strScoreBox = new ScoreComboBox(4, NULL);
+    ScoreComboBox *wisScoreBox = new ScoreComboBox(5, NULL);
 
     chaScoreBox->setModel(scoreModel);
     conScoreBox->setModel(scoreModel);
@@ -58,8 +58,7 @@ AbilityScorePage::AbilityScorePage(QWidget *parent)
     //     connect(scoreBox, SIGNAL(currentTextChanged(QString)), this,SLOT(on_score_selected(QString)));
     // }
 
-    connect(chaScoreBox, SIGNAL(activated(int)), this,SLOT(on_comboBox_activated(int)));
-    connect(chaScoreBox, SIGNAL(currentTextChanged(QString)), this,SLOT(on_score_selected(QString)));
+    connect(chaScoreBox, &ScoreComboBox::activated, this,[this, chaScoreBox](){this->on_comboBox_activated(chaScoreBox->getIndex(), chaScoreBox->currentIndex());});
 
 }
 
@@ -75,18 +74,22 @@ AbilityScorePage::~AbilityScorePage()
 {
     delete ui;
 }
-void AbilityScorePage::on_score_selected(QString score){
-    //get the index of that score
-    //remove the index
-    qDebug()<<"Current text changed to: "<<score;
 
-}
 //maybe we can only do indexes >0 so there can be a default
 //remove the optionSelected from the list
 //clear all combo boxes
-void AbilityScorePage::on_comboBox_activated(int index)
+void AbilityScorePage::on_comboBox_activated(int boxIndex, int scoreIndex)
 {
-    qDebug()<<"Combo box ACTIVATED at index: "<<index;
+    QStandardItem *score = scoreModel->item(scoreIndex); //the score selected
+    boxes[boxIndex]->setPrevScore(boxes[boxIndex]->getCurrentScore());
+    boxes[boxIndex]->setCurrentScore(score->text());
+    qDebug()<<"Combo box Number "<<boxIndex<<" ACTIVATED";
+    qDebug()<<"Combo box ACTIVATED at index: "<<scoreIndex;
+    qDebug()<<"Combo box previous Score: "<<boxes[boxIndex]->getPrevScore();
+    qDebug()<<"----------------------------------";
+
+    //remove the selection from all the other boxes
+
     /*
     QComboBox *selectedBox=boxes.at(activeBoxIndex);
 
