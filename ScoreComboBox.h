@@ -18,19 +18,19 @@ class ScoreComboBox : public QComboBox
 {
     Q_OBJECT
 private:
-    int index;
+    //QString abilityIndex;
     QString prevScore;
     QString currentScore;
 
 public:
-        ScoreComboBox(int i, QString cScore) {     // Constructor
-        this->index = i;
+        ScoreComboBox(QString cScore) {     // Constructor
+        //this->abilityIndex= abilityIndex;
         this->prevScore=cScore;
         this->currentScore=cScore;
     }
     QString getPrevScore(){return this->prevScore;}
     QString getCurrentScore(){return this->currentScore;}
-    int getIndex(){return this->index;}
+    //QString getAbilityIndex(){return this->abilityIndex;}
 
     void setPrevScore(QString prevScore){this->prevScore=prevScore;}
     void setCurrentScore(QString currentScore){this->currentScore=currentScore;}

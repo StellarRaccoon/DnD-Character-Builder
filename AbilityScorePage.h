@@ -8,7 +8,7 @@
 #include"SmallClasses.h"
 #include <QStandardItemModel>
 #include "ScoreComboBox.h"
-
+#include <QMap>
 namespace Ui {
 class AbilityScorePage;
 }
@@ -21,15 +21,17 @@ public:
     void extracted(int &i);
     explicit AbilityScorePage(QWidget *parent = nullptr);
     ~AbilityScorePage();
-    AbilityValues updatedScores;
+    QList<int> updatedScores;
+
 private:
     QStandardItemModel *scoreModel;
     AbilityValues userScores;
     QStringList comboOptions;
-    QList <ScoreComboBox *> boxes;
+    //QList <ScoreComboBox *> boxes;
+    QMap<QString,ScoreComboBox*> boxes;
     Ui::AbilityScorePage *ui;
 public slots:
-    void on_comboBox_text_changed(int boxIndex, int scoreIndex);
+    void on_comboBox_text_changed(QString boxIndex, int scoreIndex);
 };
 
 

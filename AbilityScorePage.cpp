@@ -6,38 +6,30 @@
 #include<QString>
 #include<QSignalMapper>
 #include <QStandardItemModel>
+
+/**⚠️⚠️TODO Add scores to Updated scores so mainwindow has access to the scores for updating*/
 AbilityScorePage::AbilityScorePage(QWidget *parent)
     : QWidget(parent)
     , ui(new Ui::AbilityScorePage)
 {
     ui->setupUi(this);
 
+    /*
+     * Store the boxes in a map ability:box
+     * store the raw scores in a map
+     * stores total scores in a map
+     * */
+
     comboOptions<<"0"<<"8"<<"10"<<"12"<<"13"<<"14"<<"15";
-    userScores= updatedScores;
+    //userScores= updatedScores;
     //add the combo boxes to the screen
 
-    // scoreModel = new QStandardItemModel;
-    // scoreModel->appendRow(new QStandardItem("0"));
-    // scoreModel->appendRow(new QStandardItem("8"));
-    // scoreModel->appendRow(new QStandardItem("10"));
-    // scoreModel->appendRow(new QStandardItem("12"));
-    // scoreModel->appendRow(new QStandardItem("13"));
-    // scoreModel->appendRow(new QStandardItem("14"));
-    // scoreModel->appendRow(new QStandardItem("15"));
-
-    ScoreComboBox *chaScoreBox = new ScoreComboBox(0,"0");
-    ScoreComboBox *conScoreBox = new ScoreComboBox(1,"0");
-    ScoreComboBox *dexScoreBox = new ScoreComboBox(2,"0");
-    ScoreComboBox *intScoreBox = new ScoreComboBox(3,"0");
-    ScoreComboBox *strScoreBox = new ScoreComboBox(4,"0");
-    ScoreComboBox *wisScoreBox = new ScoreComboBox(5,"0");
-
-    // chaScoreBox->setModel(scoreModel);
-    // conScoreBox->setModel(scoreModel);
-    // dexScoreBox->setModel(scoreModel);
-    // intScoreBox->setModel(scoreModel);
-    // strScoreBox->setModel(scoreModel);
-    // wisScoreBox->setModel(scoreModel);
+    ScoreComboBox *chaScoreBox = new ScoreComboBox("0");
+    ScoreComboBox *conScoreBox = new ScoreComboBox("0");
+    ScoreComboBox *dexScoreBox = new ScoreComboBox("0");
+    ScoreComboBox *intScoreBox = new ScoreComboBox("0");
+    ScoreComboBox *strScoreBox = new ScoreComboBox("0");
+    ScoreComboBox *wisScoreBox = new ScoreComboBox("0");
 
     ui->scoreBoxLayout->addWidget(chaScoreBox);
     ui->scoreBoxLayout->addWidget(conScoreBox);
@@ -45,12 +37,21 @@ AbilityScorePage::AbilityScorePage(QWidget *parent)
     ui->scoreBoxLayout->addWidget(intScoreBox);
     ui->scoreBoxLayout->addWidget(strScoreBox);
     ui->scoreBoxLayout->addWidget(wisScoreBox);
-    boxes<<chaScoreBox<<conScoreBox<<dexScoreBox<<intScoreBox<<strScoreBox<<wisScoreBox;
 
-    for(auto scoreBox:boxes){
+    boxes.insert("cha",chaScoreBox);
+    boxes.insert("con",conScoreBox);
+    boxes.insert("dex",dexScoreBox);
+    boxes.insert("int",intScoreBox);
+    boxes.insert("str",strScoreBox);
+    boxes.insert("wis",wisScoreBox);
 
-        scoreBox->addItems(comboOptions);
-        connect(scoreBox, &ScoreComboBox::currentTextChanged, this,[this, scoreBox](){this->on_comboBox_text_changed(scoreBox->getIndex(), scoreBox->currentIndex());});
+    QMap<QString, ScoreComboBox*>::const_iterator i = boxes.constBegin(); //iterator for loop
+    while (i != boxes.constEnd()) {
+
+        i.value()->addItems(comboOptions);
+        connect(i.value(), &ScoreComboBox::currentTextChanged, this,[this, i](){this->on_comboBox_text_changed(i.key(), i.value()->currentIndex());});
+        //cout << i.key() << ": " << i.value() << Qt::endl;
+        ++i;
     }
 }
 
@@ -59,35 +60,41 @@ AbilityScorePage::AbilityScorePage(QWidget *parent)
  * @param boxIndex the scoreComboBox's index in the boxes array
  * @param scoreIndex the place of the score option the user has selected
  */
-void AbilityScorePage::on_comboBox_text_changed(int boxIndex, int scoreIndex)
+void AbilityScorePage::on_comboBox_text_changed(QString boxIndex, int scoreIndex)
 {
-    QString score = boxes[boxIndex]->itemText(scoreIndex); //score value selected by user
+    QString score = boxes.value(boxIndex)->itemText(scoreIndex); //score value selected by user
 
     //update the previous and current score attributes of the combobox at the box index
-    boxes[boxIndex]->setPrevScore(boxes[boxIndex]->getCurrentScore());
-    boxes[boxIndex]->setCurrentScore(score);
+    boxes.value(boxIndex)->setPrevScore(boxes.value(boxIndex)->getCurrentScore());
+    boxes.value(boxIndex)->setCurrentScore(score);
 
     qDebug()<<"Combo box Number "<<boxIndex<<" ACTIVATED";
     qDebug()<<"Combo box ACTIVATED at index: "<<scoreIndex;
-    qDebug()<<"Combo box previous Score: "<<boxes[boxIndex]->getPrevScore();
+    qDebug()<<"Combo box previous Score: "<<boxes.value(boxIndex)->getPrevScore();
     qDebug()<<"----------------------------------";
 
     /* remove the selected value from the list of options of all other combo boxes
      * 0 should always be an option
-     * any score not selected should be readded to the possible options
-     */
-    for(auto box:boxes){
-        if(box->getIndex()!=boxIndex){
+     * any score not selected should be readded to the possible options */
+    QMap<QString, ScoreComboBox*>::const_iterator i = boxes.constBegin();
+    while (i != boxes.constEnd()) {
+        if(i.key()!=boxIndex){
             if(score!="0"){
-                //remove from other boxes
-                box->removeItem(box->findText(score));
+                //remove the option from other boxes and update the user's score
+                i.value()->removeItem(i.value()->findText(score));
+
             }
             //add options back once free
-            if(boxes[boxIndex]->getPrevScore()!="0"){
-                box->addItem(boxes[boxIndex]->getPrevScore());
+            if(boxes.value(boxIndex)->getPrevScore()!="0"){
+                i.value()->addItem(boxes.value(boxIndex)->getPrevScore());
             }
         }
+        ++i;
     }
+
+
+    //total score = defaultScore +currentScore - PreviousScore
+
 }
 
 AbilityScorePage::~AbilityScorePage()
