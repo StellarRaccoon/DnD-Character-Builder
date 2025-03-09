@@ -10,20 +10,7 @@
 class UserCharacter
 {
 public:
-    UserCharacter(){
-        Ability userChaScore = new Ability();
-        Ability userConScore = new Ability();
-        Ability userDexScore = new Ability();
-        Ability userIntScore = new Ability();
-        Ability userStrScore = new Ability();
-        Ability userWisScore = new Ability();
-        abilities.insert("cha",userChaScore);
-        abilities.insert("con",userConScore);
-        abilities.insert("dex",userDexScore);
-        abilities.insert("int",userIntScore);
-        abilities.insert("str",userStrScore);
-        abilities.insert("wis",userWisScore);
-    }
+    UserCharacter();
     /** when a user race is slected..
      *  set ability bonuses
      *  proficienes
@@ -56,10 +43,10 @@ public:
     QList<Skill> skills;
 
     QList<Equipment> userStartingEquipment;
-
+    Ability* getAbility(QString abIndex);
 
 private:
-    QMap<QString,Ability*> abilities;
+    QMap<QString,Ability*> abilitiesMap;
     QString characterName;
     QString characterBackground;
     QString playerName;
@@ -90,6 +77,7 @@ private:
     //QList<QString> userRaceTraits;
 //create a from json
 };
+
 
 
 #endif // USERCHARACTER_H
