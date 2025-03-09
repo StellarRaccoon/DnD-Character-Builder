@@ -38,3 +38,4 @@ desktop.ini
 /build
 /build
 QTry.pro.user
+*.user
