@@ -10,7 +10,20 @@
 class UserCharacter
 {
 public:
-    UserCharacter();
+    UserCharacter(){
+        Ability userChaScore = new Ability();
+        Ability userConScore = new Ability();
+        Ability userDexScore = new Ability();
+        Ability userIntScore = new Ability();
+        Ability userStrScore = new Ability();
+        Ability userWisScore = new Ability();
+        abilities.insert("cha",userChaScore);
+        abilities.insert("con",userConScore);
+        abilities.insert("dex",userDexScore);
+        abilities.insert("int",userIntScore);
+        abilities.insert("str",userStrScore);
+        abilities.insert("wis",userWisScore);
+    }
     /** when a user race is slected..
      *  set ability bonuses
      *  proficienes
@@ -22,16 +35,14 @@ public:
     void setUserRace(QString raceUrl);
     void setUserClass(QString classUrl);
     QString toString();
-    void setAbilityScore(QString index, int value);
+
     void setCharacterName(QString characterName);
     void setCharacterBackground(QString characterBackground);
     void setPlayerName(QString playerName);
     void setCharacterAlignment(QString characterAlignment);
-    void setUserAbilityMod();
 
 
-    AbilityValues getAbilityScores();
-    int getAbilityScoreByIndex();
+
     QString getUserRace();
     QString getUserClass();
     QString getCharacterName();
@@ -45,12 +56,10 @@ public:
     QList<Skill> skills;
 
     QList<Equipment> userStartingEquipment;
-    AbilityValues getIsSavingThrows();
-    AbilityValues getSavingThrowValues();
-    AbilityValues getAbilityMod();
 
 
 private:
+    QMap<QString,Ability*> abilities;
     QString characterName;
     QString characterBackground;
     QString playerName;
@@ -59,7 +68,6 @@ private:
     QString userClassUrl;
     QString userRaceURL; //one for the url one for the name
     int userHitDie;
-    AbilityValues *isSavingThrow;
     QString userRaceName;
     QList<QString> userLanguages;
     QList<QString> armorProfs;
@@ -70,10 +78,6 @@ private:
 
     void setIsProficientSkill(QString skillName);
     //QList<QString> userSavingThrows;
-    AbilityValues userAbilityBonus;
-    AbilityValues *userAbilityScore; //need to fix in the main window and on ability score page
-    AbilityValues userAbilityMod;
-    AbilityValues userSavingThrows;
     QMap<QString, int> userSkills;
 
 
