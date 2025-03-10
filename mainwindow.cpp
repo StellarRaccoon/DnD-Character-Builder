@@ -91,7 +91,7 @@ void MainWindow::on_nextPageButton_clicked()
         userCharacter->setCharacterAlignment(extraInfoPage->getCharacterAlignment());
         userCharacter->setPlayerName(this->extraInfoPage->getPlayerName());
         userCharacter->setCharacterAlignment(this->extraInfoPage->getCharacterAlignment());
-        userCharacter->setUserAbilityMod();
+        //userCharacter->setUserAbilityMod();
         userCharacter->setSkillMod();
 
     }

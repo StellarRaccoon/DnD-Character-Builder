@@ -31,6 +31,76 @@ public:
         this->modifier=0;
     }
 };
+
+class Ability{
+public:
+    int getTotal() const;
+
+    int getBaseScore() const;
+    void setBaseScore(int newBaseScore);
+    void setBaseScore(QString newBaseScore);
+
+    int getModScore() const;
+
+    int getBonusScore() const;
+    void setBonusScore(int newBonusScore);
+
+    bool getIsSavingThrow() const;
+    void setIsSavingThrow(bool newIsSavingThrow);
+
+private:
+    bool isSavingThrow =false;
+    int baseScore;
+    int modScore;
+    int bonusScore;
+};
+inline int Ability::getTotal() const{
+    return bonusScore+baseScore;
+}
+inline int Ability::getBaseScore() const
+{
+    return baseScore;
+}
+
+inline void Ability::setBaseScore(int newBaseScore)
+{
+    baseScore = newBaseScore;
+}
+/**
+ * @brief Overload accepting a string of the score value
+ * @param newBaseScore
+ */
+inline void Ability::setBaseScore(QString newBaseScore)
+{
+    baseScore = newBaseScore.toInt();
+}
+inline int Ability::getModScore() const
+{
+    return ceil((getTotal()-10)/2);
+}
+
+inline int Ability::getBonusScore() const
+{
+    return bonusScore;
+}
+
+inline void Ability::setBonusScore(int newBonusScore)
+{
+    bonusScore = newBonusScore;
+}
+
+inline bool Ability::getIsSavingThrow() const
+{
+    return isSavingThrow;
+}
+
+inline void Ability::setIsSavingThrow(bool newIsSavingThrow)
+{
+    isSavingThrow = newIsSavingThrow;
+}
+
+
+
 class AbilityValues{
 public:
     int strength;

@@ -14,7 +14,9 @@ SheetPage::SheetPage(UserCharacter *inuserChar,QWidget *parent)
     : QWidget(parent)
     , ui(new Ui::SheetPage)
 {
+
     ui->setupUi(this);
+    qDebug()<<"-----------Sheet Page--------";
     userChar=inuserChar;
     qDebug()<<userChar->getUserClass();
     //set class
@@ -34,41 +36,42 @@ SheetPage::SheetPage(UserCharacter *inuserChar,QWidget *parent)
     ui->weaponProficienciesBox->setPlainText(userChar->getCharacterProfs('w').join(", "));
     ui->otherProficienciesBox->setPlainText(userChar->getCharacterProfs('o').join(", "));
 
-    //set Ability Scores
-    AbilityValues abScore =userChar->getAbilityScores();
-    ui->strScoreBox->setText(QString::number(abScore.getValueFromIndex("str")));
-    ui->wisScoreBox->setText(QString::number(abScore.getValueFromIndex("wis")));
-    ui->dexScoreBox->setText(QString::number(abScore.getValueFromIndex("dex")));
-    ui->intScoreBox->setText(QString::number(abScore.getValueFromIndex("int")));
-    ui->chaScoreBox->setText(QString::number(abScore.getValueFromIndex("cha")));
-    ui->conScoreBox->setText(QString::number(abScore.getValueFromIndex("con")));
+    //set Ability Scoresfrom the user score map
+
+    //AbilityValues abScore =userChar->get();
+    ui->strScoreBox->setText(QString::number(userChar->getAbility("str")->getTotal()));
+    ui->wisScoreBox->setText(QString::number(userChar->getAbility("wis")->getTotal()));
+    ui->dexScoreBox->setText(QString::number(userChar->getAbility("dex")->getTotal()));
+    ui->intScoreBox->setText(QString::number(userChar->getAbility("int")->getTotal()));
+    ui->chaScoreBox->setText(QString::number(userChar->getAbility("cha")->getTotal()));
+    ui->conScoreBox->setText(QString::number(userChar->getAbility("con")->getTotal()));
 
     //set ability mods
-    AbilityValues abMods=userChar->getAbilityMod();
-    ui->wisModBox->setText(QString::number(abMods.getValueFromIndex("wis")));
-    ui->strModBox->setText(QString::number(abMods.getValueFromIndex("str")));
-    ui->dexModBox->setText(QString::number(abMods.getValueFromIndex("dex")));
-    ui->intModBox->setText(QString::number(abMods.getValueFromIndex("int")));
-    ui->chaModBox->setText(QString::number(abMods.getValueFromIndex("cha")));
-    ui->conModBox->setText(QString::number(abMods.getValueFromIndex("con")));
+    //AbilityValues abMods=userChar->getAbilityMod();
+    ui->strModBox->setText(QString::number(userChar->getAbility("str")->getModScore()));
+    ui->wisModBox->setText(QString::number(userChar->getAbility("wis")->getModScore()));
+    ui->dexModBox->setText(QString::number(userChar->getAbility("dex")->getModScore()));
+    ui->intModBox->setText(QString::number(userChar->getAbility("int")->getModScore()));
+    ui->chaModBox->setText(QString::number(userChar->getAbility("cha")->getModScore()));
+    ui->conModBox->setText(QString::number(userChar->getAbility("con")->getModScore()));
 
     //getSavingThrow Values
-    AbilityValues stValue=userChar->getSavingThrowValues();
-    ui->strThrowBox->setText(QString::number(stValue.getValueFromIndex("str")));
-    ui->wisThrowBox->setText(QString::number(stValue.getValueFromIndex("wis")));
-    ui->dexThrowBox->setText(QString::number(stValue.getValueFromIndex("dex")));
-    ui->intThrowBox->setText(QString::number(stValue.getValueFromIndex("int")));
-    ui->chaThrowBox->setText(QString::number(stValue.getValueFromIndex("cha")));
-    ui->conThrowBox->setText(QString::number(stValue.getValueFromIndex("con")));
+    //AbilityValues stValue=userChar->getSavingThrowValues();
+    ui->strThrowBox->setText(QString::number(userChar->getAbility("str")->getModScore()+(userChar->userProfMod * userChar->getAbility("str")->getIsSavingThrow())));
+    ui->wisThrowBox->setText(QString::number(userChar->getAbility("wis")->getModScore()+(userChar->userProfMod * userChar->getAbility("wis")->getIsSavingThrow())));
+    ui->dexThrowBox->setText(QString::number(userChar->getAbility("dex")->getModScore()+(userChar->userProfMod * userChar->getAbility("dex")->getIsSavingThrow())));
+    ui->intThrowBox->setText(QString::number(userChar->getAbility("int")->getModScore()+(userChar->userProfMod * userChar->getAbility("int")->getIsSavingThrow())));
+    ui->chaThrowBox->setText(QString::number(userChar->getAbility("cha")->getModScore()+(userChar->userProfMod * userChar->getAbility("cha")->getIsSavingThrow())));
+    ui->conThrowBox->setText(QString::number(userChar->getAbility("con")->getModScore()+(userChar->userProfMod * userChar->getAbility("con")->getIsSavingThrow())));
 
     //check saving throw buttons
-    AbilityValues isThrow=userChar->getIsSavingThrows();
-    ui->strThrowProfBox->setChecked(isThrow.getValueFromIndex("str")==1);
-    ui->wisThrowProfBox->setChecked(isThrow.getValueFromIndex("wis")==1);
-    ui->dexThrowProfBox->setChecked(isThrow.getValueFromIndex("dex")==1);
-    ui->intThrowProfBox->setChecked(isThrow.getValueFromIndex("int")==1);
-    ui->chaThrowProfBox->setChecked(isThrow.getValueFromIndex("cha")==1);
-    ui->conThrowProfBox->setChecked(isThrow.getValueFromIndex("con")==1);
+    //AbilityValues isThrow=userChar->getIsSavingThrows();
+    ui->strThrowProfBox->setChecked(userChar->getAbility("str")->getIsSavingThrow());
+    ui->wisThrowProfBox->setChecked(userChar->getAbility("wis")->getIsSavingThrow());
+    ui->dexThrowProfBox->setChecked(userChar->getAbility("dex")->getIsSavingThrow());
+    ui->intThrowProfBox->setChecked(userChar->getAbility("int")->getIsSavingThrow());
+    ui->chaThrowProfBox->setChecked(userChar->getAbility("cha")->getIsSavingThrow());
+    ui->conThrowProfBox->setChecked(userChar->getAbility("con")->getIsSavingThrow());
 
 
 

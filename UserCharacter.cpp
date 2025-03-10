@@ -6,12 +6,19 @@
 #include"SmallClasses.h"
 
 UserCharacter::UserCharacter() {
-
-
-    isSavingThrow = new AbilityValues();
-    userAbilityScore=new AbilityValues();
     userProfMod =2;
-
+    Ability* userChaScore = new Ability();
+    Ability* userConScore = new Ability();
+    Ability* userDexScore = new Ability();
+    Ability* userIntScore = new Ability();
+    Ability* userStrScore = new Ability();
+    Ability* userWisScore = new Ability();
+    abilitiesMap.insert("cha",userChaScore);
+    abilitiesMap.insert("con",userConScore);
+    abilitiesMap.insert("dex",userDexScore);
+    abilitiesMap.insert("int",userIntScore);
+    abilitiesMap.insert("str",userStrScore);
+    abilitiesMap.insert("wis",userWisScore);
     //fill out skills list
     QJsonArray skillArray=jason.getArrayFromJson("results",jason.fetchData("/api/skills"));
     for(auto skillRef:skillArray){
@@ -19,17 +26,15 @@ UserCharacter::UserCharacter() {
         //call the api on the trait and get the trait object
         //convert into an object
         QJsonObject skillObj = jason.fetchData(skillUrl).object();
-        QString type = skillObj.value("nameability_score").toObject().value("index").toString();
+        QString type = skillObj.value("ability_score").toObject().value("index").toString();
         QString desc=skillObj.value("desc").toString();
         QString name=skillObj.value("name").toString();
         Skill newSkill =*new Skill(name,type,desc);
         skills.append(newSkill);
     }
-
-
 }
-void UserCharacter::setAbilityScore(QString key, int value){
-    userAbilityScore->setFromIndex(key,value);
+Ability* UserCharacter::getAbility(QString abIndex){
+    return abilitiesMap.value(abIndex);
 }
 
 void UserCharacter::setIsProficientSkill(QString skillName){
@@ -39,6 +44,7 @@ void UserCharacter::setIsProficientSkill(QString skillName){
         }
     }
 }
+
 /**
  * Add the full proficiency json obj to the user character array from a mini prof object
  * */
@@ -69,14 +75,10 @@ void UserCharacter::addProficiency(QJsonObject profBasic)
 void UserCharacter::setUserClass(QString classUrl){
     userClassUrl=classUrl;
 
-
     QJsonObject classObj = jason.fetchData(classUrl).object();
-
-
 
     userClass=classObj.value("name").toString();
     userHitDie=classObj.value("hit_die").toInt();
-
 
     //add starting profs
     if(classObj.contains("proficiencies")){
@@ -87,12 +89,14 @@ void UserCharacter::setUserClass(QString classUrl){
 
         }
     }
+    //
     if(classObj.contains("saving_throws")){
         QJsonArray savingThrows= classObj.value("saving_throws").toArray();
 
         for(auto st: savingThrows){
             QString stString =st.toObject().value("index").toString();
-            isSavingThrow->setFromIndex(stString, 1);
+            abilitiesMap.value(stString)->setIsSavingThrow(true);
+            //isSavingThrow->setFromIndex(stString, 1);
 
         }
     }
@@ -134,8 +138,9 @@ void UserCharacter::setUserRace(QString raceUrl){
         for(auto abilityBonus: abilityBonuses){
             QJsonObject bonusData = abilityBonus.toObject();
             QString abilityIndex=bonusData.value("ability_score").toObject().value("index").toString();
+            abilitiesMap.value(abilityIndex)->setBonusScore(bonusData.value("bonus").toInt());
             //isSavingThrow->setFromIndex(abilityIndex,bonusData.value("bonus").toInt());
-            userAbilityScore->setFromIndex(abilityIndex,bonusData.value("bonus").toInt());
+            //userAbilityScore->setFromIndex(abilityIndex,bonusData.value("bonus").toInt());
         }
     }
 
@@ -197,10 +202,6 @@ void UserCharacter::setUserRace(QString raceUrl){
     }
 }
 
-AbilityValues UserCharacter::getAbilityScores(){
-    return *userAbilityScore;
-}
-
 QString UserCharacter::getUserRace(){
     return userRaceName;
 
@@ -225,10 +226,6 @@ void UserCharacter::setCharacterName(QString characterName){
     this->characterName=characterName;
 }
 
-int UserCharacter::calculateAbilityModFromIndex(QString abilityName){
-    //qDebug()<<userAbilityValue.getValueFromIndex(abilityName);
-    return ceil((userAbilityScore->getValueFromIndex(abilityName)-10)/2);
-}
 void UserCharacter::setCharacterBackground(QString characterBackground){
     this->characterBackground=characterBackground;
 }
@@ -257,37 +254,13 @@ QStringList UserCharacter::getCharacterProfs(char profsToGet){
 QList<UserTrait> UserCharacter::getUserTraits(){
     return userRaceTraits;
 }
-AbilityValues UserCharacter::getIsSavingThrows(){
-    return *isSavingThrow;
-}
 
-AbilityValues UserCharacter::getAbilityMod(){
 
-    return userAbilityMod;
-}
-void UserCharacter::setUserAbilityMod(){
-
-    userAbilityMod.strength=calculateAbilityModFromIndex("str");
-    userAbilityMod.dexterity=calculateAbilityModFromIndex("dex");
-    userAbilityMod.constitution=calculateAbilityModFromIndex("con");
-    userAbilityMod.intelligence=calculateAbilityModFromIndex("int");
-    userAbilityMod.wisdom=calculateAbilityModFromIndex("wis");
-    userAbilityMod.charisma=calculateAbilityModFromIndex("cha");
-
-}
-AbilityValues UserCharacter::getSavingThrowValues(){
-    userSavingThrows.strength = userAbilityMod.getValueFromIndex("str")+(isSavingThrow->strength*userProfMod);
-    userSavingThrows.intelligence = userAbilityMod.getValueFromIndex("int")+(isSavingThrow->intelligence*userProfMod);
-    userSavingThrows.wisdom = userAbilityMod.getValueFromIndex("wis")+(isSavingThrow->wisdom*userProfMod);
-    userSavingThrows.constitution = userAbilityMod.getValueFromIndex("con")+(isSavingThrow->constitution*userProfMod);
-    userSavingThrows.dexterity = userAbilityMod.getValueFromIndex("dex")+(isSavingThrow->dexterity*userProfMod);
-    userSavingThrows.charisma = userAbilityMod.getValueFromIndex("cha")+(isSavingThrow->charisma*userProfMod);
-    return userSavingThrows;
-}
 void UserCharacter::setSkillMod(){
 
     for(auto skill :skills){
-        skill.modifier = userAbilityMod.getValueFromIndex(skill.abilityIndex);
+        //skill.modifier = userAbilityMod.getValueFromIndex(skill.abilityIndex);
+        skill.modifier=abilitiesMap.value(skill.abilityIndex)->getModScore();
         if(skill.isProficent){
             skill.modifier=skill.modifier+2;
         }
