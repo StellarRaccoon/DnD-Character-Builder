@@ -55,7 +55,7 @@ private:
     int bonusScore;
 };
 inline int Ability::getTotal() const{
-    return this->bonusScore+this->baseScore;
+    return bonusScore+baseScore;
 }
 inline int Ability::getBaseScore() const
 {
