@@ -21,9 +21,8 @@ AbilityScorePage::AbilityScorePage(QWidget *parent)
      * */
 
     comboOptions<<"0"<<"8"<<"10"<<"12"<<"13"<<"14"<<"15";
-    //userScores= updatedScores;
-    //add the combo boxes to the screen
 
+    //add the combo boxes to the screen
     ScoreComboBox *chaScoreBox = new ScoreComboBox("0");
     ScoreComboBox *conScoreBox = new ScoreComboBox("0");
     ScoreComboBox *dexScoreBox = new ScoreComboBox("0");
@@ -50,7 +49,6 @@ AbilityScorePage::AbilityScorePage(QWidget *parent)
 
         i.value()->addItems(comboOptions);
         connect(i.value(), &ScoreComboBox::currentTextChanged, this,[this, i](){this->on_comboBox_text_changed(i.key(), i.value()->currentIndex());});
-        //cout << i.key() << ": " << i.value() << Qt::endl;
         ++i;
     }
 }
@@ -84,17 +82,25 @@ void AbilityScorePage::on_comboBox_text_changed(QString boxIndex, int scoreIndex
                 i.value()->removeItem(i.value()->findText(score));
 
             }
-            //add options back once free
+            //add options back once free in desending order
             if(boxes.value(boxIndex)->getPrevScore()!="0"){
-                i.value()->addItem(boxes.value(boxIndex)->getPrevScore());
+                QString optionToAdd = boxes.value(boxIndex)->getPrevScore();
+                int j=1;
+                while( j<=i.value()->count()){
+                    int currentOption=i.value()->itemText(j).toInt();
+                    if(optionToAdd.toInt()<currentOption || currentOption==0){
+                        i.value()->insertItem(j,boxes.value(boxIndex)->getPrevScore());
+                        qDebug()<<"inserted at: "<<j;
+                        j=i.value()->count()+1; //end search
+                    }
+                    j++;
+                }
             }
         }
         ++i;
     }
-
-
+    //⚠️TODO add total
     //total score = defaultScore +currentScore - PreviousScore
-
 }
 int AbilityScorePage::getBoxScore(QString abIndex){
     return boxes.value(abIndex)->getCurrentScore().toInt();
