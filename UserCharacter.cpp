@@ -26,7 +26,7 @@ UserCharacter::UserCharacter() {
         //call the api on the trait and get the trait object
         //convert into an object
         QJsonObject skillObj = jason.fetchData(skillUrl).object();
-        QString type = skillObj.value("nameability_score").toObject().value("index").toString();
+        QString type = skillObj.value("ability_score").toObject().value("index").toString();
         QString desc=skillObj.value("desc").toString();
         QString name=skillObj.value("name").toString();
         Skill newSkill =*new Skill(name,type,desc);
