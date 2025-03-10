@@ -69,13 +69,18 @@ void MainWindow::on_nextPageButton_clicked()
     }
     else if(currentIndex==1){
         userCharacter->setUserClass(this->classPage->getCurrentItem());
-        //qDebug()<<"userClass: "<<this->classPage->getCurrentItem();
         //scorePage->updatedScores = userCharacter->getAbilityScores();
         //⚠️send the base scores to the score page
 
     }
     else if(currentIndex==2){
         //⚠️update the character scores
+        userCharacter->getAbility("str")->setBaseScore(scorePage->getBoxScore("str"));
+        userCharacter->getAbility("int")->setBaseScore(scorePage->getBoxScore("int"));
+        userCharacter->getAbility("con")->setBaseScore(scorePage->getBoxScore("con"));
+        userCharacter->getAbility("cha")->setBaseScore(scorePage->getBoxScore("cha"));
+        userCharacter->getAbility("dex")->setBaseScore(scorePage->getBoxScore("dex"));
+        userCharacter->getAbility("wis")->setBaseScore(scorePage->getBoxScore("wis"));
         // userCharacter->setAbilityScore("str",scorePage->updatedScores.getValueFromIndex("str"));
         // userCharacter->setAbilityScore("int",scorePage->updatedScores.getValueFromIndex("int"));
         // userCharacter->setAbilityScore("con",scorePage->updatedScores.getValueFromIndex("con"));

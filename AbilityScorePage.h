@@ -18,10 +18,11 @@ class AbilityScorePage : public QWidget
     Q_OBJECT
 
 public:
-    void extracted(int &i);
+    //void extracted(int &i);
     explicit AbilityScorePage(QWidget *parent = nullptr);
     ~AbilityScorePage();
     QList<int> updatedScores;
+    int getBoxScore(QString abIndex);
 
 private:
     QStandardItemModel *scoreModel;

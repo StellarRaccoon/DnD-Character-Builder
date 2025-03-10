@@ -96,7 +96,9 @@ void AbilityScorePage::on_comboBox_text_changed(QString boxIndex, int scoreIndex
     //total score = defaultScore +currentScore - PreviousScore
 
 }
-
+int AbilityScorePage::getBoxScore(QString abIndex){
+    return boxes.value(abIndex)->getCurrentScore().toInt();
+}
 AbilityScorePage::~AbilityScorePage()
 {
     delete ui;
