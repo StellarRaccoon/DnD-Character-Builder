@@ -99,11 +99,23 @@ void AbilityScorePage::on_comboBox_text_changed(QString boxIndex, int scoreIndex
         }
         ++i;
     }
+    //int total =
     //⚠️TODO add total
-    //total score = defaultScore +currentScore - PreviousScore
+    //total score = scorebonus +currentScore - PreviousScore
+
 }
 int AbilityScorePage::getBoxScore(QString abIndex){
     return boxes.value(abIndex)->getCurrentScore().toInt();
+}
+
+QMap<QString, int> AbilityScorePage::getCharAbilityBonus() const
+{
+    return charAbilityBonus;
+}
+
+void AbilityScorePage::setCharAbilityBonus(QString abilityIndex, int bonusValue)
+{
+    charAbilityBonus.insert(abilityIndex,bonusValue);
 }
 AbilityScorePage::~AbilityScorePage()
 {

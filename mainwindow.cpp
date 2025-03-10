@@ -70,7 +70,13 @@ void MainWindow::on_nextPageButton_clicked()
     else if(currentIndex==1){
         userCharacter->setUserClass(this->classPage->getCurrentItem());
         //scorePage->updatedScores = userCharacter->getAbilityScores();
-        //⚠️send the base scores to the score page
+        //⚠️send the base scores to the score page probably use a qmap set to bonuses of char ability bonus
+        scorePage->setCharAbilityBonus("str", userCharacter->getAbility("str")->getBonusScore());
+        scorePage->setCharAbilityBonus("int", userCharacter->getAbility("int")->getBonusScore());
+        scorePage->setCharAbilityBonus("con", userCharacter->getAbility("con")->getBonusScore());
+        scorePage->setCharAbilityBonus("cha", userCharacter->getAbility("cha")->getBonusScore());
+        scorePage->setCharAbilityBonus("dex", userCharacter->getAbility("dex")->getBonusScore());
+        scorePage->setCharAbilityBonus("wis", userCharacter->getAbility("wis")->getBonusScore());
 
     }
     else if(currentIndex==2){

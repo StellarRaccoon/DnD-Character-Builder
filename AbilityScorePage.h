@@ -24,6 +24,9 @@ public:
     QList<int> updatedScores;
     int getBoxScore(QString abIndex);
 
+    QMap<QString, int> getCharAbilityBonus() const;
+    void setCharAbilityBonus(QString abilityIndex, int bonusValue); //set a key:value pair
+
 private:
     QStandardItemModel *scoreModel;
     AbilityValues userScores;
@@ -31,6 +34,9 @@ private:
     //QList <ScoreComboBox *> boxes;
     QMap<QString,ScoreComboBox*> boxes;
     Ui::AbilityScorePage *ui;
+    QMap<QString, int> charAbilityBonus; //ability bonus for the character, keyed by the ability index, loaded when page is loaded into
+
+
 public slots:
     void on_comboBox_text_changed(QString boxIndex, int scoreIndex);
 };
