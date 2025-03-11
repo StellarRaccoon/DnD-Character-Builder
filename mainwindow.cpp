@@ -70,7 +70,8 @@ void MainWindow::on_nextPageButton_clicked()
     else if(currentIndex==1){
         userCharacter->setUserClass(this->classPage->getCurrentItem());
         //scorePage->updatedScores = userCharacter->getAbilityScores();
-        //⚠️send the base scores to the score page probably use a qmap set to bonuses of char ability bonus
+        //send the base scores to the score page
+        //🤔🤔this seems like bad oop, maybe just get the score from the user char in the score page using a getter
         scorePage->setCharAbilityBonus("str", userCharacter->getAbility("str")->getBonusScore());
         scorePage->setCharAbilityBonus("int", userCharacter->getAbility("int")->getBonusScore());
         scorePage->setCharAbilityBonus("con", userCharacter->getAbility("con")->getBonusScore());
@@ -80,20 +81,14 @@ void MainWindow::on_nextPageButton_clicked()
 
     }
     else if(currentIndex==2){
-        //⚠️update the character scores
+        //update the character scores
+        //🤔🤔🤔maybe should be done in the ability page using a setter on the user char for better code
         userCharacter->getAbility("str")->setBaseScore(scorePage->getBoxScore("str"));
         userCharacter->getAbility("int")->setBaseScore(scorePage->getBoxScore("int"));
         userCharacter->getAbility("con")->setBaseScore(scorePage->getBoxScore("con"));
         userCharacter->getAbility("cha")->setBaseScore(scorePage->getBoxScore("cha"));
         userCharacter->getAbility("dex")->setBaseScore(scorePage->getBoxScore("dex"));
         userCharacter->getAbility("wis")->setBaseScore(scorePage->getBoxScore("wis"));
-        // userCharacter->setAbilityScore("str",scorePage->updatedScores.getValueFromIndex("str"));
-        // userCharacter->setAbilityScore("int",scorePage->updatedScores.getValueFromIndex("int"));
-        // userCharacter->setAbilityScore("con",scorePage->updatedScores.getValueFromIndex("con"));
-        // userCharacter->setAbilityScore("cha",scorePage->updatedScores.getValueFromIndex("cha"));
-        // userCharacter->setAbilityScore("dex",scorePage->updatedScores.getValueFromIndex("dex"));
-        // userCharacter->setAbilityScore("wis",scorePage->updatedScores.getValueFromIndex("wis"));
-
     }
     else if(currentIndex==3){
         //get data from extras page

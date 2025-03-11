@@ -9,7 +9,6 @@
 #include <QTableWidget>
 #include <QHeaderView>
 
-/**⚠️⚠️TODO Add scores to Updated scores so mainwindow has access to the scores for updating*/
 AbilityScorePage::AbilityScorePage(QWidget *parent)
     : QWidget(parent)
     , ui(new Ui::AbilityScorePage)
@@ -67,6 +66,7 @@ AbilityScorePage::AbilityScorePage(QWidget *parent)
         newScoreTable->horizontalHeader()->hide();
 
         // Add items
+        //⚠️TODO where is the bonus value????
         QTableWidgetItem *bonusItem = new QTableWidgetItem(charAbilityBonus.value(index));
         newScoreTable->setItem(1, 0, bonusItem);
         bonusItem->setFlags(bonusItem->flags() ^ Qt::ItemIsEditable);
@@ -128,7 +128,6 @@ void AbilityScorePage::on_comboBox_text_changed(QString boxIndex, int scoreIndex
         }
         ++i;
     }
-    //int total =
     //⚠️TODO add total
     //total score = scorebonus +currentScore - PreviousScore
 
@@ -137,11 +136,7 @@ int AbilityScorePage::getBoxScore(QString abIndex){
     return boxes.value(abIndex)->getCurrentScore().toInt();
 }
 
-// QMap<QString, int> AbilityScorePage::getCharAbilityBonus() const
-// {
-//     return charAbilityBonus;
-// }
-
+//🤔🤔🤔Is this necessary??? should I just get the user character and access the ability bonus from there? this seems like bad oop
 void AbilityScorePage::setCharAbilityBonus(QString abilityIndex, int bonusValue)
 {
     charAbilityBonus.insert(abilityIndex,bonusValue);
