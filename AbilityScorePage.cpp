@@ -6,6 +6,8 @@
 #include<QString>
 #include<QSignalMapper>
 #include <QStandardItemModel>
+#include <QTableWidget>
+#include <QHeaderView>
 
 /**⚠️⚠️TODO Add scores to Updated scores so mainwindow has access to the scores for updating*/
 AbilityScorePage::AbilityScorePage(QWidget *parent)
@@ -51,6 +53,20 @@ AbilityScorePage::AbilityScorePage(QWidget *parent)
         connect(i.value(), &ScoreComboBox::currentTextChanged, this,[this, i](){this->on_comboBox_text_changed(i.key(), i.value()->currentIndex());});
         ++i;
     }
+    //insert total tables
+    QStringList headers ={"Bonus", "Total"};
+    QTableWidget* chaScoreTable = new QTableWidget(2,1);
+    chaScoreTable->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    chaScoreTable->setVerticalHeaderLabels(headers);
+    chaScoreTable->horizontalHeader()->hide();
+
+    // Add items
+    QTableWidgetItem *item1 = new QTableWidgetItem("Test Val");
+    chaScoreTable->setItem(1, 0, item1);
+    item1->setFlags(item1->flags() ^ Qt::ItemIsEditable);
+    ui->totalBoxLayout->addWidget(chaScoreTable);
+
+
 }
 
 /**
