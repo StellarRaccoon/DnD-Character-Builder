@@ -25,6 +25,7 @@ AbilityScorePage::AbilityScorePage(QWidget *parent)
     comboOptions<<"0"<<"8"<<"10"<<"12"<<"13"<<"14"<<"15";
 
     //add the combo boxes to the screen
+    //📌this could be done in a for loop like the tables
     ScoreComboBox *chaScoreBox = new ScoreComboBox("0");
     ScoreComboBox *conScoreBox = new ScoreComboBox("0");
     ScoreComboBox *dexScoreBox = new ScoreComboBox("0");
@@ -53,18 +54,30 @@ AbilityScorePage::AbilityScorePage(QWidget *parent)
         connect(i.value(), &ScoreComboBox::currentTextChanged, this,[this, i](){this->on_comboBox_text_changed(i.key(), i.value()->currentIndex());});
         ++i;
     }
-    //insert total tables
-    QStringList headers ={"Bonus", "Total"};
-    QTableWidget* chaScoreTable = new QTableWidget(2,1);
-    chaScoreTable->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-    chaScoreTable->setVerticalHeaderLabels(headers);
-    chaScoreTable->horizontalHeader()->hide();
 
-    // Add items
-    QTableWidgetItem *item1 = new QTableWidgetItem("Test Val");
-    chaScoreTable->setItem(1, 0, item1);
-    item1->setFlags(item1->flags() ^ Qt::ItemIsEditable);
-    ui->totalBoxLayout->addWidget(chaScoreTable);
+    QStringList abilityIndicies = {"cha","con","dex","int","str","wis"};
+    QStringList headers ={"Bonus", "Total"};
+
+    for(auto index:abilityIndicies)
+    {
+        //set up table
+        QTableWidget* newScoreTable = new QTableWidget(2,1);
+        newScoreTable->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+        newScoreTable->setVerticalHeaderLabels(headers);
+        newScoreTable->horizontalHeader()->hide();
+
+        // Add items
+        QTableWidgetItem *bonusItem = new QTableWidgetItem(charAbilityBonus.value(index));
+        newScoreTable->setItem(1, 0, bonusItem);
+        bonusItem->setFlags(bonusItem->flags() ^ Qt::ItemIsEditable);
+        QTableWidgetItem *totalItem = new QTableWidgetItem("--");
+        newScoreTable->setItem(1, 0, totalItem);
+        totalItem->setFlags(totalItem->flags() ^ Qt::ItemIsEditable);
+
+        //insert table into view
+        ui->totalBoxLayout->addWidget(newScoreTable);
+    }
+
 
 
 }
@@ -124,10 +137,10 @@ int AbilityScorePage::getBoxScore(QString abIndex){
     return boxes.value(abIndex)->getCurrentScore().toInt();
 }
 
-QMap<QString, int> AbilityScorePage::getCharAbilityBonus() const
-{
-    return charAbilityBonus;
-}
+// QMap<QString, int> AbilityScorePage::getCharAbilityBonus() const
+// {
+//     return charAbilityBonus;
+// }
 
 void AbilityScorePage::setCharAbilityBonus(QString abilityIndex, int bonusValue)
 {
